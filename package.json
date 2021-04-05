@@ -1,0 +1,18 @@
+{
+  "description": "Microfrontend libraries",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "redneckz",
+    "email": "aalexandrovv@gmail.com"
+  },
+  "repository": {
+    "url": "https://github.com/redneckz/microfront-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/redneckz/microfront-core/issues"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
