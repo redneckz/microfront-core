@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "out-tsc/spec",
+    "types": [
+      "jest",
+      "node"
+    ],
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "declaration": true
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

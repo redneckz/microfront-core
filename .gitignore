@@ -2,6 +2,7 @@
 
 # compiled output
 dist/
+lib/
 tmp/
 out-tsc/
 
@@ -32,8 +33,7 @@ speed-measure-plugin*.json
 # misc
 /.sass-cache
 /connect.lock
-/coverage
-/libpeerconnection.log
+coverage/
 npm-debug.log
 yarn-error.log
 testem.log
