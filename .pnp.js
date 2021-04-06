@@ -19,7 +19,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     ],
     "dependencyTreeRoots": [
       {
-        "name": "microfront-core",
+        "name": "microfront-toolset",
         "reference": "workspace:."
       },
       {
@@ -36,7 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "fallbackExclusionList": [
       ["@redneckz/microfront-core", ["workspace:packages/microfront-core"]],
       ["@redneckz/module-federation-utils", ["workspace:packages/module-federation-utils"]],
-      ["microfront-core", ["workspace:."]]
+      ["microfront-toolset", ["workspace:."]]
     ],
     "fallbackPool": [
     ],
@@ -4833,11 +4833,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["microfront-core", [
+      ["microfront-toolset", [
         ["workspace:.", {
           "packageLocation": "./",
           "packageDependencies": [
-            ["microfront-core", "workspace:."],
+            ["microfront-toolset", "workspace:."],
             ["jest", "npm:26.6.3"],
             ["rimraf", "npm:3.0.2"]
           ],

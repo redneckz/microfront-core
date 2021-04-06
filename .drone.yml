@@ -1,0 +1,42 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: test
+    image: node:14
+    commands:
+      - yarn
+      - yarn test
+
+  - name: coverage
+    image: plugins/codecov
+    settings:
+      token:
+        from_secret: CODECOV_TOKEN
+      files:
+        - packages/microfront-core/coverage/lcov.info
+        - packages/module-federation-utils/coverage/lcov.info
+
+trigger:
+  event:
+    - push
+    - pull_request
+
+---
+kind: pipeline
+type: docker
+name: build
+
+steps:
+  - name: build
+    image: node:14
+    commands:
+      - yarn
+      - yarn build
+
+trigger:
+  event:
+    - push
+    - pull_request
