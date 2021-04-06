@@ -1,12 +1,23 @@
 {
   "name": "@redneckz/module-federation-utils",
   "description": "Module Federation Utils",
+  "keywords": [
+    "webpack",
+    "federation",
+    "microfrontend"
+  ],
   "license": "MIT",
   "author": {
     "name": "redneckz",
     "email": "aalexandrovv@gmail.com"
   },
-  "main": "dist/main.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist lib out-tsc",
     "build": "yarn clean && yarn build:tsc && webpack --mode=production",

@@ -1,12 +1,22 @@
 {
   "name": "@redneckz/microfront-core",
   "description": "Microfrontend lightweight core library",
+  "keywords": [
+    "microfrontend"
+  ],
   "license": "MIT",
   "author": {
     "name": "redneckz",
     "email": "aalexandrovv@gmail.com"
   },
   "main": "dist/main.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist lib out-tsc",
     "build": "yarn clean && yarn build:tsc && webpack --mode=production",
