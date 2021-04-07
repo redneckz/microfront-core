@@ -16,8 +16,7 @@ steps:
       token:
         from_secret: CODECOV_TOKEN
       files:
-        - packages/microfront-core/coverage/lcov.info
-        - packages/module-federation-utils/coverage/lcov.info
+        - coverage/lcov.info
 
 trigger:
   event:
