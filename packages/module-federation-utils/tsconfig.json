@@ -4,10 +4,7 @@
     "outDir": "out-tsc/lib",
     "types": ["node"],
     "target": "es2018",
-    "module": "commonjs",
-    "lib": [
-      "es2018"
-    ]
+    "module": "commonjs"
   },
   "files": [
     "src/index.ts"
