@@ -52,7 +52,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                             {
                                 packageLocation: './',
                                 packageDependencies: [
+                                    ['@types/jest', 'npm:26.0.22'],
+                                    ['@types/node', 'npm:14.14.37'],
                                     ['@types/rimraf', 'npm:3.0.0'],
+                                    ['@types/webpack', 'npm:5.28.0'],
                                     [
                                         '@yarnpkg/pnpify',
                                         'virtual:90bc31033b84d12ea6063ee9571c360d6d1f60e27220e52abbaa93c180d7fd54b60882fe2a7ccb250ba61a6547d8b970025ecfe61d4fa03cee2ca76ba90d8c81#npm:2.4.0'
@@ -1390,7 +1393,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['rimraf', 'npm:3.0.2'],
                                     [
                                         'ts-jest',
-                                        'virtual:c812fc0ccd8fccebb2b90887e099af6e7e2b7573bb14b7521fa25f9a3de74b2f62c0effeb1f98c0360be5b4fa618f55ba8bfe7619a8481ad939c4cb6722c6aac#npm:26.5.4'
+                                        'virtual:90bc31033b84d12ea6063ee9571c360d6d1f60e27220e52abbaa93c180d7fd54b60882fe2a7ccb250ba61a6547d8b970025ecfe61d4fa03cee2ca76ba90d8c81#npm:26.5.4'
                                     ],
                                     [
                                         'ts-loader',
@@ -1431,7 +1434,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['rimraf', 'npm:3.0.2'],
                                     [
                                         'ts-jest',
-                                        'virtual:c812fc0ccd8fccebb2b90887e099af6e7e2b7573bb14b7521fa25f9a3de74b2f62c0effeb1f98c0360be5b4fa618f55ba8bfe7619a8481ad939c4cb6722c6aac#npm:26.5.4'
+                                        'virtual:90bc31033b84d12ea6063ee9571c360d6d1f60e27220e52abbaa93c180d7fd54b60882fe2a7ccb250ba61a6547d8b970025ecfe61d4fa03cee2ca76ba90d8c81#npm:26.5.4'
                                     ],
                                     [
                                         'ts-loader',
@@ -2369,7 +2372,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                         '@webpack-cli/configtest',
                                         'virtual:9ded8018ea9a54bd0d4efc19d63f2b5bc78b0c6d3fef12aaa24b1f44726dfe80b791e259d0e1f4d3202b15b2ff4516eb366334df7f33f245c3d24667cc12f2c1#npm:1.0.2'
                                     ],
-                                    ['@types/webpack', null],
+                                    ['@types/webpack', 'npm:5.28.0'],
                                     ['@types/webpack-cli', null],
                                     [
                                         'webpack',
@@ -9031,7 +9034,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                 packageLocation: './',
                                 packageDependencies: [
                                     ['microfront-toolset', 'workspace:.'],
+                                    ['@types/jest', 'npm:26.0.22'],
+                                    ['@types/node', 'npm:14.14.37'],
                                     ['@types/rimraf', 'npm:3.0.0'],
+                                    ['@types/webpack', 'npm:5.28.0'],
                                     [
                                         '@yarnpkg/pnpify',
                                         'virtual:90bc31033b84d12ea6063ee9571c360d6d1f60e27220e52abbaa93c180d7fd54b60882fe2a7ccb250ba61a6547d8b970025ecfe61d4fa03cee2ca76ba90d8c81#npm:2.4.0'
@@ -12688,38 +12694,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                         'ts-jest',
                                         'virtual:90bc31033b84d12ea6063ee9571c360d6d1f60e27220e52abbaa93c180d7fd54b60882fe2a7ccb250ba61a6547d8b970025ecfe61d4fa03cee2ca76ba90d8c81#npm:26.5.4'
                                     ],
-                                    ['@types/jest', null],
-                                    ['@types/typescript', null],
-                                    ['bs-logger', 'npm:0.2.6'],
-                                    ['buffer-from', 'npm:1.1.1'],
-                                    ['fast-json-stable-stringify', 'npm:2.1.0'],
-                                    ['jest', 'npm:26.6.3'],
-                                    ['jest-util', 'npm:26.6.2'],
-                                    ['json5', 'npm:2.2.0'],
-                                    ['lodash', 'npm:4.17.21'],
-                                    ['make-error', 'npm:1.3.6'],
-                                    ['mkdirp', 'npm:1.0.4'],
-                                    ['semver', 'npm:7.3.5'],
-                                    [
-                                        'typescript',
-                                        'patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=a45b0e'
-                                    ],
-                                    ['yargs-parser', 'npm:20.2.7']
-                                ],
-                                packagePeers: ['@types/jest', '@types/typescript', 'jest', 'typescript'],
-                                linkType: 'HARD'
-                            }
-                        ],
-                        [
-                            'virtual:c812fc0ccd8fccebb2b90887e099af6e7e2b7573bb14b7521fa25f9a3de74b2f62c0effeb1f98c0360be5b4fa618f55ba8bfe7619a8481ad939c4cb6722c6aac#npm:26.5.4',
-                            {
-                                packageLocation:
-                                    './.yarn/$$virtual/ts-jest-virtual-a237b8fb70/0/cache/ts-jest-npm-26.5.4-d44a800654-8e5856b7cb.zip/node_modules/ts-jest/',
-                                packageDependencies: [
-                                    [
-                                        'ts-jest',
-                                        'virtual:c812fc0ccd8fccebb2b90887e099af6e7e2b7573bb14b7521fa25f9a3de74b2f62c0effeb1f98c0360be5b4fa618f55ba8bfe7619a8481ad939c4cb6722c6aac#npm:26.5.4'
-                                    ],
                                     ['@types/jest', 'npm:26.0.22'],
                                     ['@types/typescript', null],
                                     ['bs-logger', 'npm:0.2.6'],
@@ -12767,7 +12741,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                         'virtual:90bc31033b84d12ea6063ee9571c360d6d1f60e27220e52abbaa93c180d7fd54b60882fe2a7ccb250ba61a6547d8b970025ecfe61d4fa03cee2ca76ba90d8c81#npm:8.1.0'
                                     ],
                                     ['@types/typescript', null],
-                                    ['@types/webpack', null],
+                                    ['@types/webpack', 'npm:5.28.0'],
                                     ['chalk', 'npm:4.1.0'],
                                     ['enhanced-resolve', 'npm:4.5.0'],
                                     ['loader-utils', 'npm:2.0.0'],
@@ -13568,7 +13542,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                         'virtual:90bc31033b84d12ea6063ee9571c360d6d1f60e27220e52abbaa93c180d7fd54b60882fe2a7ccb250ba61a6547d8b970025ecfe61d4fa03cee2ca76ba90d8c81#npm:4.6.0'
                                     ],
                                     ['@discoveryjs/json-ext', 'npm:0.5.2'],
-                                    ['@types/webpack', null],
+                                    ['@types/webpack', 'npm:5.28.0'],
                                     [
                                         '@webpack-cli/configtest',
                                         'virtual:9ded8018ea9a54bd0d4efc19d63f2b5bc78b0c6d3fef12aaa24b1f44726dfe80b791e259d0e1f4d3202b15b2ff4516eb366334df7f33f245c3d24667cc12f2c1#npm:1.0.2'

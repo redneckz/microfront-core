@@ -4887,7 +4887,10 @@ fsevents@^2.1.2:
   version: 0.0.0-use.local
   resolution: "microfront-toolset@workspace:."
   dependencies:
+    "@types/jest": 26.0.22
+    "@types/node": 14.14.37
     "@types/rimraf": 3
+    "@types/webpack": 5.28.0
     "@yarnpkg/pnpify": 2.4.0
     husky: ">=6"
     jest: 26.6.3
