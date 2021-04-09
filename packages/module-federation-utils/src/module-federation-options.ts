@@ -16,18 +16,14 @@ export type RemoteURL = [ModuleName, ModuleBaseURL];
  * @param name - name of container is required
  * @returns options compatible with ModuleFederationPlugin
  */
-export function moduleFederationOptions(
-    options: {
-        name: string;
-        exposes?: ModuleFederationPluginOptions['exposes'];
-        remotes?: RemoteURL[];
-    },
-    rawOptions?: Partial<ModuleFederationPluginOptions>
-): ModuleFederationPluginOptions {
+export function moduleFederationOptions(options: {
+    name: string;
+    exposes?: ModuleFederationPluginOptions['exposes'];
+    remotes?: RemoteURL[];
+    shared?: ModuleFederationPluginOptions['shared'];
+}): ModuleFederationPluginOptions {
     const { name, exposes, remotes } = options;
     return Object.assign(
-        {},
-        rawOptions,
         {
             name,
             remotes: remotes?.map(remoteURL)

@@ -38,11 +38,4 @@ describe('moduleFederationOptions', () => {
             }
         });
     });
-
-    it('should pass miscellaneous ModuleFederationPlugin options as is to ModuleFederationPlugin', () => {
-        expect(moduleFederationOptions({ name: 'foo' }, { shared: ['react', 'react-dom'] })).toEqual({
-            name: 'foo',
-            shared: ['react', 'react-dom']
-        });
-    });
 });
