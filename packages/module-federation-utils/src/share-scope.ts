@@ -1,6 +1,4 @@
-import { container } from 'webpack';
-
-export type ModuleFederationPluginOptions = ConstructorParameters<typeof container.ModuleFederationPlugin>[0];
+import { ModuleFederationPluginOptions } from './module-federation-options';
 
 /**
  * Helper to simplify declaration of shared packages based on package.json

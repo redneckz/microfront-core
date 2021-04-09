@@ -27,18 +27,6 @@ describe('insertStyleSafely', () => {
 
         insertStyleSafely('foo')(linkTag);
 
-        expect((globalThis as any).foo.insertStyle).toBeCalledWith(linkTag, undefined);
-    });
-
-    it('should inject styles into MF mounting root with additional options if provided', () => {
-        // Setup MF context
-        (globalThis as any).foo = {
-            insertStyle: jest.fn()
-        } as any;
-        const linkTag: Node = {} as any;
-
-        insertStyleSafely('foo', { rootClass: 'root-class' })(linkTag);
-
-        expect((globalThis as any).foo.insertStyle).toBeCalledWith(linkTag, { rootClass: 'root-class' });
+        expect((globalThis as any).foo.insertStyle).toBeCalledWith(linkTag);
     });
 });
