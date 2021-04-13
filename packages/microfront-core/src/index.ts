@@ -1,3 +1,9 @@
-export * from './microfront-api.model';
-export * from './microfront-api';
-export * from './microfront-isolation-api';
+export type {
+    MicroFrontIsolation,
+    MicroFrontAPI,
+    MicroFrontModuleBootstrap,
+    MicroFrontModule
+} from './microfront-api.model';
+export { register } from './microfront-api';
+export type { MicroFrontIsolationAPI } from './microfront-isolation-api';
+export { isolationAPI } from './microfront-isolation-api';

@@ -10,10 +10,10 @@ export function insertStyleSafely(name: string): (linkTag: Node) => void {
     return linkTag => {
         // All MFs should be loaded as a "var"
         if ((globalThis as any)[name] && (globalThis as any)[name].insertStyle) {
-            // MF container
+            // MF container context
             (globalThis as any)[name].insertStyle(linkTag);
         } else {
-            // Default behavior
+            // Default behavior (app context)
             document.head.appendChild(linkTag);
         }
     };

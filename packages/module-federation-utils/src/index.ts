@@ -1,3 +1,4 @@
-export * from './module-federation-options';
-export * from './share-scope';
-export * from './insert-style-safely';
+export type { ModuleFederationPluginOptions, RemoteURL } from './module-federation-options';
+export { moduleFederationOptions } from './module-federation-options';
+export { shareScope } from './share-scope';
+export { insertStyleSafely } from './insert-style-safely';

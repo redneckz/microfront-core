@@ -7,9 +7,9 @@
       "node"
     ],
     "module": "commonjs",
-    "emitDecoratorMetadata": true,
-    "sourceMap": true,
-    "declaration": true
+    "emitDecoratorMetadata": false,
+    "sourceMap": false,
+    "declaration": false
   },
   "include": [
     "src/**/*.spec.ts",
