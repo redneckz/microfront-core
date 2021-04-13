@@ -11,6 +11,8 @@ Microfrontend toolset
 
 [Microfrontend Core Library](./packages/microfront-core/README.md)
 
+[Microfrontend Core Library for React](./packages/microfront-core-react/README.md)
+
 [Webpack Module Federation Utils](./packages/module-federation-utils/README.md)
 
 # Get Started
