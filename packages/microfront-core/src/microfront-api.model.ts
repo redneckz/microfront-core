@@ -13,12 +13,12 @@ export interface MicroFrontAPI {
     // TODO v1 messaging
 }
 
-export type MicroFrontModuleBootstrap = (
-    api: MicroFrontAPI
-) => Promise<{
+export interface MicroFrontBootstrappedModule {
     mount(mountingRoot: Element): Promise<void>;
     unmount(mountingRoot: Element): Promise<void>;
-}>;
+}
+
+export type MicroFrontModuleBootstrap = (api: MicroFrontAPI) => Promise<MicroFrontBootstrappedModule>;
 
 // This interface should be implemented by remote modules
 export interface MicroFrontModule {

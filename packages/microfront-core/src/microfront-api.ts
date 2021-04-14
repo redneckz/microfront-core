@@ -14,10 +14,10 @@ import { isolationAPI } from './microfront-isolation-api';
  * @param options
  * @returns wrapped MF`s bootstrap
  */
-export async function register(
+export function register(
     module: () => Promise<MicroFrontModule>,
     options: { isolation?: MicroFrontIsolation } = {}
-): Promise<MicroFrontModuleBootstrap> {
+): MicroFrontModuleBootstrap {
     const { isolation } = options;
     if (isolation === MicroFrontIsolation.SANDBOX) {
         throw new Error('MicroFrontIsolation.SANDBOX isolation level is not supported yet...');

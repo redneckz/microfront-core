@@ -60,6 +60,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['@types/jest', 'npm:26.0.22'],
                                     ['@types/node', 'npm:14.14.37'],
                                     ['@types/react', 'npm:17.0.2'],
+                                    ['@types/react-dom', 'npm:17.0.2'],
                                     ['@types/rimraf', 'npm:3.0.0'],
                                     ['@types/webpack', 'npm:5.28.0'],
                                     [
@@ -1417,9 +1418,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                 packageLocation: './packages/microfront-core-react/',
                                 packageDependencies: [
                                     ['@redneckz/microfront-core-react', 'workspace:packages/microfront-core-react'],
+                                    ['@redneckz/microfront-core', 'workspace:packages/microfront-core'],
                                     ['@types/jest', 'npm:26.0.22'],
                                     ['@types/node', 'npm:14.14.37'],
                                     ['@types/react', 'npm:17.0.2'],
+                                    ['@types/react-dom', 'npm:17.0.2'],
                                     ['jest', 'npm:26.6.3'],
                                     ['react', 'npm:17.0.2'],
                                     [
@@ -1994,6 +1997,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                 ],
                                 linkType: 'HARD'
                             }
+                        ],
+                        [
+                            'npm:17.0.3',
+                            {
+                                packageLocation:
+                                    './.yarn/cache/@types-react-npm-17.0.3-dc5fdac36f-5bcaabadc9.zip/node_modules/@types/react/',
+                                packageDependencies: [
+                                    ['@types/react', 'npm:17.0.3'],
+                                    ['@types/prop-types', 'npm:15.7.3'],
+                                    ['@types/scheduler', 'npm:0.16.1'],
+                                    ['csstype', 'npm:3.0.7']
+                                ],
+                                linkType: 'HARD'
+                            }
+                        ]
+                    ]
+                ],
+                [
+                    '@types/react-dom',
+                    [
+                        [
+                            'npm:17.0.2',
+                            {
+                                packageLocation:
+                                    './.yarn/cache/@types-react-dom-npm-17.0.2-e91edc6c98-abaadaa262.zip/node_modules/@types/react-dom/',
+                                packageDependencies: [
+                                    ['@types/react-dom', 'npm:17.0.2'],
+                                    ['@types/react', 'npm:17.0.3']
+                                ],
+                                linkType: 'HARD'
+                            }
                         ]
                     ]
                 ],
@@ -2027,6 +2061,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['@types/glob', 'npm:7.1.3'],
                                     ['@types/node', 'npm:14.14.37']
                                 ],
+                                linkType: 'HARD'
+                            }
+                        ]
+                    ]
+                ],
+                [
+                    '@types/scheduler',
+                    [
+                        [
+                            'npm:0.16.1',
+                            {
+                                packageLocation:
+                                    './.yarn/cache/@types-scheduler-npm-0.16.1-9a58541608-0124c2e4de.zip/node_modules/@types/scheduler/',
+                                packageDependencies: [['@types/scheduler', 'npm:0.16.1']],
                                 linkType: 'HARD'
                             }
                         ]
@@ -9136,6 +9184,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['@types/jest', 'npm:26.0.22'],
                                     ['@types/node', 'npm:14.14.37'],
                                     ['@types/react', 'npm:17.0.2'],
+                                    ['@types/react-dom', 'npm:17.0.2'],
                                     ['@types/rimraf', 'npm:3.0.0'],
                                     ['@types/webpack', 'npm:5.28.0'],
                                     [

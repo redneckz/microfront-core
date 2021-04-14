@@ -21,7 +21,7 @@ describe('register', () => {
             } as any)
         );
 
-        const wrappedBootstrap = await register(module);
+        const wrappedBootstrap = register(module);
         await wrappedBootstrap({} as any);
 
         expect(module).toBeCalledTimes(1);
@@ -32,7 +32,7 @@ describe('register', () => {
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
         const api: MicroFrontAPI = {} as any;
 
-        const bootstrap = await register(module);
+        const bootstrap = register(module);
         await bootstrap(api);
 
         expect(bootstrapMock).toBeCalledWith(api);
@@ -44,7 +44,7 @@ describe('register', () => {
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
         const mountingRoot: Element = {} as any;
 
-        const bootstrap = await register(module);
+        const bootstrap = register(module);
         const { mount } = await bootstrap({} as any);
         await mount(mountingRoot);
 
@@ -57,7 +57,7 @@ describe('register', () => {
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
         const mountingRoot: Element = {} as any;
 
-        const bootstrap = await register(module);
+        const bootstrap = register(module);
         const { unmount } = await bootstrap({} as any);
         await unmount(mountingRoot);
 
@@ -70,7 +70,7 @@ describe('register', () => {
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
         const api: MicroFrontAPI = {} as any;
 
-        const bootstrap = await register(module);
+        const bootstrap = register(module);
         const { mount } = await bootstrap(api);
         await mount({} as any);
 
@@ -82,7 +82,7 @@ describe('register', () => {
         const bootstrapMock = () => Promise.resolve({ mount: mountMock });
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
 
-        const bootstrap = await register(module);
+        const bootstrap = register(module);
         const { mount } = await bootstrap({} as any);
         await mount({} as any);
 
