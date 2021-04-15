@@ -7,12 +7,11 @@ import { useBootstrap } from './use-bootstrap';
 import { useMount } from './use-mount';
 
 export interface MicroFrontInShadowProps {
-    name: string;
-    route: string;
+    route?: string;
 
     bootstrap: MicroFrontModuleBootstrap;
 
-    renderError: (error: Error) => React.ReactNode;
+    renderError?: (error: Error) => React.ReactNode;
     children: (mountingRootRef: React.RefObject<any>) => React.ReactNode;
 }
 
@@ -20,25 +19,20 @@ export interface MicroFrontInShadowProps {
  * MicroFrontInShadow is responsible for the shadow DOM isolation of loaded MF.
  * It accepts "bootstrap" function produced by @redneckz/microfront-core "register" function.
  *
- * @param name - remote module name
  * @param route - root route dedicated for remote module
  * @param bootstrap - bootstrap function provided by @redneckz/microfront-core "register" function
  * @param renderError - render something in case of bootstrap/mount/unmount error
  * @param children - kind of loading and success handler
  * @returns
  */
-export function MicroFrontInShadow({ name, route, bootstrap, renderError, children }: MicroFrontInShadowProps) {
+export function MicroFrontInShadow({ route, bootstrap, renderError = defaultErrorRenderer, children }: MicroFrontInShadowProps) {
     const [shadowRoot, rootRef] = useShadow<HTMLDivElement>();
 
     const bootstrapModule = useCallback(async () => {
         if (!shadowRoot) return;
 
-        return bootstrap({
-            name,
-            route,
-            root: shadowRoot
-        });
-    }, [name, route, shadowRoot]);
+        return bootstrap({ route, root: shadowRoot });
+    }, [route, shadowRoot]);
 
     const [bootstrappedModule, error] = useBootstrap(bootstrapModule);
 
@@ -58,4 +52,8 @@ export function MicroFrontInShadow({ name, route, bootstrap, renderError, childr
             )}
         </div>
     );
+}
+
+function defaultErrorRenderer(error: Error): React.ReactNode {
+    throw error;
 }

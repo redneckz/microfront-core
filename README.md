@@ -115,6 +115,8 @@ TODO
 
 ## Step #4 [Angular] Host Container
 
+TODO Update according to Core API
+
 ```ts
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -124,7 +126,7 @@ import { MicroIsolationModule } from '@redneckz/microfront-angular';
 
 @Component({
     // "micro-shadow" should be provided by MicroIsolationModule
-    template: '<micro-shadow name="foo" path="path/to/foo" [module]="module"></micro-shadow>'
+    template: '<micro-shadow name="foo" route="path/to/foo" [module]="module"></micro-shadow>'
 })
 export class FooShadowComponent {
     module = () => import('foo/foo-page');

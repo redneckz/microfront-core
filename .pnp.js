@@ -61,6 +61,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['@types/node', 'npm:14.14.37'],
                                     ['@types/react', 'npm:17.0.2'],
                                     ['@types/react-dom', 'npm:17.0.2'],
+                                    ['@types/react-test-renderer', 'npm:17.0.1'],
                                     ['@types/rimraf', 'npm:3.0.0'],
                                     ['@types/webpack', 'npm:5.28.0'],
                                     [
@@ -1423,10 +1424,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['@types/node', 'npm:14.14.37'],
                                     ['@types/react', 'npm:17.0.2'],
                                     ['@types/react-dom', 'npm:17.0.2'],
+                                    ['@types/react-test-renderer', 'npm:17.0.1'],
                                     ['jest', 'npm:26.6.3'],
                                     ['react', 'npm:17.0.2'],
                                     [
                                         'react-dom',
+                                        'virtual:3be1331a06f7f9c3e089eae2970648fe84f41626198dbd44d2d26ceba9fe4edeaf6dd5ab7e2484571be4e0a6d2dab7dd90baddabc51f90a88050babd01d3be68#npm:17.0.2'
+                                    ],
+                                    [
+                                        'react-test-renderer',
                                         'virtual:3be1331a06f7f9c3e089eae2970648fe84f41626198dbd44d2d26ceba9fe4edeaf6dd5ab7e2484571be4e0a6d2dab7dd90baddabc51f90a88050babd01d3be68#npm:17.0.2'
                                     ],
                                     ['rimraf', 'npm:3.0.2'],
@@ -2024,6 +2030,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     './.yarn/cache/@types-react-dom-npm-17.0.2-e91edc6c98-abaadaa262.zip/node_modules/@types/react-dom/',
                                 packageDependencies: [
                                     ['@types/react-dom', 'npm:17.0.2'],
+                                    ['@types/react', 'npm:17.0.3']
+                                ],
+                                linkType: 'HARD'
+                            }
+                        ]
+                    ]
+                ],
+                [
+                    '@types/react-test-renderer',
+                    [
+                        [
+                            'npm:17.0.1',
+                            {
+                                packageLocation:
+                                    './.yarn/cache/@types-react-test-renderer-npm-17.0.1-9a42d8bb68-bd3f8c6c2a.zip/node_modules/@types/react-test-renderer/',
+                                packageDependencies: [
+                                    ['@types/react-test-renderer', 'npm:17.0.1'],
                                     ['@types/react', 'npm:17.0.3']
                                 ],
                                 linkType: 'HARD'
@@ -9185,6 +9208,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     ['@types/node', 'npm:14.14.37'],
                                     ['@types/react', 'npm:17.0.2'],
                                     ['@types/react-dom', 'npm:17.0.2'],
+                                    ['@types/react-test-renderer', 'npm:17.0.1'],
                                     ['@types/rimraf', 'npm:3.0.0'],
                                     ['@types/webpack', 'npm:5.28.0'],
                                     [
@@ -10808,6 +10832,77 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                 packageLocation:
                                     './.yarn/cache/react-is-npm-17.0.2-091bbb8db6-3eff23f410.zip/node_modules/react-is/',
                                 packageDependencies: [['react-is', 'npm:17.0.2']],
+                                linkType: 'HARD'
+                            }
+                        ]
+                    ]
+                ],
+                [
+                    'react-shallow-renderer',
+                    [
+                        [
+                            'npm:16.14.1',
+                            {
+                                packageLocation:
+                                    './.yarn/cache/react-shallow-renderer-npm-16.14.1-b8a4f845ff-d52cb869e2.zip/node_modules/react-shallow-renderer/',
+                                packageDependencies: [['react-shallow-renderer', 'npm:16.14.1']],
+                                linkType: 'SOFT'
+                            }
+                        ],
+                        [
+                            'virtual:4e03200efcc983951f8eeeb9d5d01d9e36799e83020df74b79d89ddf3254c6c5cb04e5292b07f06ac20b6f2867fe6bd076664a2d2c25d9f20e8d46d97ba31576#npm:16.14.1',
+                            {
+                                packageLocation:
+                                    './.yarn/$$virtual/react-shallow-renderer-virtual-567e9cf8f6/0/cache/react-shallow-renderer-npm-16.14.1-b8a4f845ff-d52cb869e2.zip/node_modules/react-shallow-renderer/',
+                                packageDependencies: [
+                                    [
+                                        'react-shallow-renderer',
+                                        'virtual:4e03200efcc983951f8eeeb9d5d01d9e36799e83020df74b79d89ddf3254c6c5cb04e5292b07f06ac20b6f2867fe6bd076664a2d2c25d9f20e8d46d97ba31576#npm:16.14.1'
+                                    ],
+                                    ['@types/react', 'npm:17.0.2'],
+                                    ['object-assign', 'npm:4.1.1'],
+                                    ['react', 'npm:17.0.2'],
+                                    ['react-is', 'npm:17.0.2']
+                                ],
+                                packagePeers: ['@types/react', 'react'],
+                                linkType: 'HARD'
+                            }
+                        ]
+                    ]
+                ],
+                [
+                    'react-test-renderer',
+                    [
+                        [
+                            'npm:17.0.2',
+                            {
+                                packageLocation:
+                                    './.yarn/cache/react-test-renderer-npm-17.0.2-1086717127-9e79031ad2.zip/node_modules/react-test-renderer/',
+                                packageDependencies: [['react-test-renderer', 'npm:17.0.2']],
+                                linkType: 'SOFT'
+                            }
+                        ],
+                        [
+                            'virtual:3be1331a06f7f9c3e089eae2970648fe84f41626198dbd44d2d26ceba9fe4edeaf6dd5ab7e2484571be4e0a6d2dab7dd90baddabc51f90a88050babd01d3be68#npm:17.0.2',
+                            {
+                                packageLocation:
+                                    './.yarn/$$virtual/react-test-renderer-virtual-4e03200efc/0/cache/react-test-renderer-npm-17.0.2-1086717127-9e79031ad2.zip/node_modules/react-test-renderer/',
+                                packageDependencies: [
+                                    [
+                                        'react-test-renderer',
+                                        'virtual:3be1331a06f7f9c3e089eae2970648fe84f41626198dbd44d2d26ceba9fe4edeaf6dd5ab7e2484571be4e0a6d2dab7dd90baddabc51f90a88050babd01d3be68#npm:17.0.2'
+                                    ],
+                                    ['@types/react', 'npm:17.0.2'],
+                                    ['object-assign', 'npm:4.1.1'],
+                                    ['react', 'npm:17.0.2'],
+                                    ['react-is', 'npm:17.0.2'],
+                                    [
+                                        'react-shallow-renderer',
+                                        'virtual:4e03200efcc983951f8eeeb9d5d01d9e36799e83020df74b79d89ddf3254c6c5cb04e5292b07f06ac20b6f2867fe6bd076664a2d2c25d9f20e8d46d97ba31576#npm:16.14.1'
+                                    ],
+                                    ['scheduler', 'npm:0.20.2']
+                                ],
+                                packagePeers: ['@types/react', 'react'],
                                 linkType: 'HARD'
                             }
                         ]

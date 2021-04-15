@@ -11,13 +11,13 @@ export interface MicroFrontIsolationAPI {
 }
 
 /**
- * Isolation API provider. Should bind isolation API to loaded MF module instance
+ * Isolation API provider. Should bind isolation API to the loaded MF module instance
  *
- * @param name - MF module name
+ * @param name - remote module name (defined in Module Federation config)
  * @param root - layout slot dedicated for this particular MF module
  * @returns isolation API to isolate styles and other kinds of stuff related to MF module
  */
-export function isolationAPI({ name, root }: { name: string; root: Node & ParentNode }): MicroFrontIsolationAPI {
+export function isolationAPI({ name, root }: { name: string; root?: Node & ParentNode }): MicroFrontIsolationAPI {
     const moduleVar = (globalThis as any)[name];
     if (!moduleVar) {
         throw new Error(`Module ${name} should be loaded in order to provide isolation API`);
@@ -29,12 +29,15 @@ export function isolationAPI({ name, root }: { name: string; root: Node & Parent
     const cache: { styles: Node[] } = { styles: [] };
     moduleVar[BOUND_API_FIELD] = {
         bindStyles: () => {
+            if (!root) return;
             root.prepend(...cache.styles);
         },
         unbindStyles: () => {
+            if (!root) return;
             cache.styles.forEach(_ => root.removeChild(_));
         },
         insertStyle: style => {
+            if (!root) return;
             root.prepend(style);
             cache.styles.push(style);
         }

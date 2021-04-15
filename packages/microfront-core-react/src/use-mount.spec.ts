@@ -16,7 +16,7 @@ describe('useMount', () => {
 
     it('should return mounting root reference', () => {
         const mountintRootRef = { current: {} as Element };
-        (useRef as jest.Mock).mockReturnValue(mountintRootRef);
+        (useRef as jest.Mock).mockReturnValueOnce(mountintRootRef);
 
         expect(useMount()).toBe(mountintRootRef);
     });
@@ -28,7 +28,7 @@ describe('useMount', () => {
             mount: jest.fn(),
             unmount: jest.fn()
         };
-        (useRef as jest.Mock).mockReturnValue({
+        (useRef as jest.Mock).mockReturnValueOnce({
             current: {} as Element
         });
 
@@ -43,7 +43,7 @@ describe('useMount', () => {
             mount: jest.fn(),
             unmount: jest.fn()
         };
-        (useRef as jest.Mock).mockReturnValue({
+        (useRef as jest.Mock).mockReturnValueOnce({
             current: {} as Element
         });
 

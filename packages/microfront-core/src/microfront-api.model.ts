@@ -5,10 +5,8 @@ export enum MicroFrontIsolation {
 
 // Revealed API provided by host container
 export interface MicroFrontAPI {
-    readonly name: string; // MF module name used by Webpack Module Federation
-    readonly route: string; // MF root route
-
-    readonly root: ParentNode & Node; // layout slot dedicated for this particular MF module
+    readonly route?: string; // MF root route
+    readonly root?: ParentNode & Node; // layout slot dedicated for this particular MF module
 
     // TODO v1 messaging
 }

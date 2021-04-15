@@ -21,7 +21,7 @@ describe('register', () => {
             } as any)
         );
 
-        const wrappedBootstrap = register(module);
+        const wrappedBootstrap = register('foo', module);
         await wrappedBootstrap({} as any);
 
         expect(module).toBeCalledTimes(1);
@@ -32,7 +32,7 @@ describe('register', () => {
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
         const api: MicroFrontAPI = {} as any;
 
-        const bootstrap = register(module);
+        const bootstrap = register('foo', module);
         await bootstrap(api);
 
         expect(bootstrapMock).toBeCalledWith(api);
@@ -44,7 +44,7 @@ describe('register', () => {
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
         const mountingRoot: Element = {} as any;
 
-        const bootstrap = register(module);
+        const bootstrap = register('foo', module);
         const { mount } = await bootstrap({} as any);
         await mount(mountingRoot);
 
@@ -57,24 +57,11 @@ describe('register', () => {
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
         const mountingRoot: Element = {} as any;
 
-        const bootstrap = register(module);
+        const bootstrap = register('foo', module);
         const { unmount } = await bootstrap({} as any);
         await unmount(mountingRoot);
 
         expect(unmountMock).toBeCalledWith(mountingRoot);
-    });
-
-    it('should instantiate isolation API on "mount"', async () => {
-        const mountMock = () => {};
-        const bootstrapMock = () => Promise.resolve({ mount: mountMock });
-        const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
-        const api: MicroFrontAPI = {} as any;
-
-        const bootstrap = register(module);
-        const { mount } = await bootstrap(api);
-        await mount({} as any);
-
-        expect(isolationAPI).toBeCalledWith(api);
     });
 
     it('should bind styles on "mount" by means of isolation API', async () => {
@@ -82,7 +69,7 @@ describe('register', () => {
         const bootstrapMock = () => Promise.resolve({ mount: mountMock });
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
 
-        const bootstrap = register(module);
+        const bootstrap = register('foo', module);
         const { mount } = await bootstrap({} as any);
         await mount({} as any);
 

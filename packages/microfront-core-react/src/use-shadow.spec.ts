@@ -18,7 +18,7 @@ describe('useShadow', () => {
 
         const shadowRoot = {} as ShadowRoot;
         const rootRef = { current: { shadowRoot } as Element };
-        (useRef as jest.Mock).mockReturnValue(rootRef);
+        (useRef as jest.Mock).mockReturnValueOnce(rootRef);
 
         const pair = useShadow();
 
@@ -30,7 +30,7 @@ describe('useShadow', () => {
         expect.assertions(2);
 
         const attachShadow = jest.fn() as Element['attachShadow'];
-        (useRef as jest.Mock).mockReturnValue({
+        (useRef as jest.Mock).mockReturnValueOnce({
             current: { attachShadow } as Element
         });
 

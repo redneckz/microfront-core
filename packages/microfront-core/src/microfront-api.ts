@@ -10,11 +10,13 @@ import { isolationAPI } from './microfront-isolation-api';
  *     <div id="mountingRoot">Loading...</div>
  * </div
  *
+ * @param name - remote module name (defined in Module Federation config)
  * @param module - async import of MF module
- * @param options
+ * @param options - optional
  * @returns wrapped MF`s bootstrap
  */
 export function register(
+    name: string,
     module: () => Promise<MicroFrontModule>,
     options: { isolation?: MicroFrontIsolation } = {}
 ): MicroFrontModuleBootstrap {
@@ -25,14 +27,15 @@ export function register(
     return async api => {
         const { bootstrap } = await module();
         const { mount, unmount } = await bootstrap(api);
+        const { bindStyles, unbindStyles } = isolationAPI({ name, root: api.root });
         return {
             async mount(mountingRoot) {
-                isolationAPI(api).bindStyles();
+                bindStyles();
                 await mount(mountingRoot);
             },
             async unmount(mountingRoot) {
                 await unmount(mountingRoot);
-                isolationAPI(api).unbindStyles();
+                unbindStyles();
             }
         };
     };
