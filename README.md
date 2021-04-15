@@ -115,37 +115,40 @@ TODO
 
 ## Step #4 [Angular] Host Container
 
-TODO Update according to Core API
+TODO Implement @redneckz/microfront-core-angular
 
 ```ts
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Implement angular wrapper
-import { MicroIsolationModule } from '@redneckz/microfront-angular';
+import { register } from '@redneckz/microfront-core';
+import { MicroFrontCoreModule } from '@redneckz/microfront-core-angular';
 
 @Component({
-    // "micro-shadow" should be provided by MicroIsolationModule
-    template: '<micro-shadow name="foo" route="path/to/foo" [module]="module"></micro-shadow>'
+    // "microfront-in-shadow" is a part of "MicroFrontCoreModule"
+    template: '<microfront-in-shadow route="path/to/foo" [bootstrap]="bootstrap"></microfront-in-shadow>'
 })
-export class FooShadowComponent {
-    module = () => import('foo/foo-page');
+export class FooInShadowComponent {
+    bootstrap = register(
+        'foo', // remote module name according to Module Federation config
+        () => import('foo/foo-page') //  remote module
+    );
 }
 
 const routes: Routes = [
     ...,
     {
-        path: 'path/to/foo',
+        path: 'path/to/foo', // remote module root route
         children: [{
             path: '**',
-            component: FooShadowComponent
+            component: FooInShadowComponent
         }]
     }
 ];
 
 @NgModule({
-    declarations: [FooShadowComponent],
-    imports: [RouterModule.forRoot(routes), MicroIsolationModule],
+    declarations: [FooInShadowComponent],
+    imports: [RouterModule.forRoot(routes), MicroFrontCoreModule],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}
