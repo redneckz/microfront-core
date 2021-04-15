@@ -11,9 +11,19 @@ Microfrontend toolset
 
 [Microfrontend Core Library](./packages/microfront-core/README.md)
 
+[Webpack Module Federation Utils](./packages/module-federation-utils/README.md)
+
 [Microfrontend Core Library for React](./packages/microfront-core-react/README.md)
 
-[Webpack Module Federation Utils](./packages/module-federation-utils/README.md)
+# Containers Isolation
+
+Remote modules should be isolated from each other in terms of `DOM/CSS/JS/API`.
+
+`Shadow DOM` can be used to isolate `DOM/CSS`. `API` isolation could be achieved by means of `iframe` (sandbox). But `iframe` approach comes with a bunch of drawbacks.
+
+Support of different isolation levels is the major feature of this lightweight framework ;)
+
+Currently, only `Shadow DOM` isolation level is supported.
 
 # Get Started
 
@@ -33,13 +43,13 @@ https://webpack.js.org/migrate/5/
 
 ## Step #3 Configure Module Federation Plugin
 
-In order to share micro frontends across containers Webpack Module Federation Plugin should be configured.
+To share micro frontends across containers, Webpack Module Federation Plugin should be configured.
 
 More info here https://webpack.js.org/concepts/module-federation/
 
 ### Host Container
 
-Host container is a kind of orchestrator. It loads remote modules by means of Module Federation and places every module into a dedicated slot of layout.
+Host container is a kind of orchestrator. It loads remote modules by means of Module Federation and places every module into a dedicated slot of the layout.
 
 ```js
 const webpack = require('webpack');
@@ -154,13 +164,9 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-## Step #5 Containers Isolation
+## Step #5 [React] Micro Frontend
 
-Remote modules should be isolated from each other in terms of `DOM/CSS/JS/API`.
-
-`Shadow DOM` can be used to isolate `DOM/CSS`. `API` isolation could be achieved by means of `iframe` (sandbox). But `iframe` approach comes with bunch of drawbacks.
-
-Thats why `API` isolation should be provided by this lightweight framework ;) in the near future...
+TODO
 
 # License
 
