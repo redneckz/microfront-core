@@ -47,7 +47,7 @@ To share micro frontends across containers, Webpack Module Federation Plugin sho
 
 More info here https://webpack.js.org/concepts/module-federation/
 
-### Host Container
+### Host Container Configuration
 
 Host container is a kind of orchestrator. It loads remote modules by means of Module Federation and places every module into a dedicated slot of the layout.
 
@@ -81,7 +81,7 @@ module.exports = {
 };
 ```
 
-### Micro Frontend Container
+### Micro Frontend Container Configuration
 
 ```js
 const webpack = require('webpack');
@@ -121,7 +121,32 @@ module.exports = {
 
 ## Step #4 [React] Host Container
 
-TODO
+```ts
+import React from 'react';
+import { Redirect, Switch, Route } from 'react-router-dom';
+
+import { register } from '@redneckz/microfront-core';
+import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
+
+const FooInShadowComponent: React.FC = () => (
+    <MicroFrontInShadow
+        route="path/to/foo"
+        bootstrap={register(
+            'foo', // remote module name according to Module Federation config
+            () => import('foo/foo-page') //  remote module
+        )}
+    >
+        {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
+    </MicroFrontInShadow>
+);
+
+export const App: React.FC = () => (
+    <Switch>
+        <Route path="path/to/foo" component={FooInShadowComponent} />
+        ...
+    </Switch>
+);
+```
 
 ## Step #4 [Angular] Host Container
 
@@ -166,7 +191,37 @@ export class AppRoutingModule {}
 
 ## Step #5 [React] Micro Frontend
 
-TODO
+```ts
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { Router } from 'react-router-dom';
+
+import { MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
+
+// Each and every micro frontend should implement async "bootstrap" function
+export const bootstrap: MicroFrontModuleBootstrap = async ({ route: rootRoute }) => {
+    // Global stuff can be lazily loaded here
+    const { App } = await import('./App');
+    const { createBrowserHistory } = await import('history');
+
+    // Relative to MF root route
+    const history = createBrowserHistory({ basename: rootRoute });
+
+    return {
+        mount: async mountingRoot => {
+            render(
+                <Router history={history}>
+                    <App />
+                </Router>,
+                mountingRoot
+            );
+        },
+        unmount: async mountingRoot => {
+            unmountComponentAtNode(mountingRoot);
+        }
+    };
+};
+```
 
 # License
 
