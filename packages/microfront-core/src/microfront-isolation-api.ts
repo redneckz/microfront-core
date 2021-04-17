@@ -17,7 +17,7 @@ export interface MicroFrontIsolationAPI {
  * @param root - layout slot dedicated for this particular MF module
  * @returns isolation API to isolate styles and other kinds of stuff related to MF module
  */
-export function isolationAPI({ name, root }: { name: string; root?: Node & ParentNode }): MicroFrontIsolationAPI {
+export function isolationAPI(name: string, { root }: { root?: Node & ParentNode } = {}): MicroFrontIsolationAPI {
     const moduleVar = (globalThis as any)[name];
     if (!moduleVar) {
         throw new Error(`Module ${name} should be loaded in order to provide isolation API`);

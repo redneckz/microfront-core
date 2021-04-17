@@ -27,7 +27,7 @@ export function register(
     return async api => {
         const { bootstrap } = await module();
         const { mount, unmount } = await bootstrap(api);
-        const { bindStyles, unbindStyles } = isolationAPI({ name, root: api.root });
+        const { bindStyles, unbindStyles } = isolationAPI(name, { root: api.root });
         return {
             async mount(mountingRoot) {
                 bindStyles();

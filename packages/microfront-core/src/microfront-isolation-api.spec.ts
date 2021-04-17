@@ -6,13 +6,13 @@ describe('isolationAPI', () => {
     });
 
     it('should throw an exception if remote module has not been loaded', () => {
-        expect(() => isolationAPI({ name: 'foo' })).toThrowError('foo');
+        expect(() => isolationAPI('foo')).toThrowError('foo');
     });
 
     it('should bind isolation API to the loaded remote module', () => {
         (globalThis as any).foo = {};
 
-        const api = isolationAPI({ name: 'foo' });
+        const api = isolationAPI('foo');
 
         expect(api).toBeTruthy();
     });
@@ -20,8 +20,8 @@ describe('isolationAPI', () => {
     it('should return already bound isolation API on consequent calls', () => {
         (globalThis as any).foo = {};
 
-        const api1 = isolationAPI({ name: 'foo' });
-        const api2 = isolationAPI({ name: 'foo' });
+        const api1 = isolationAPI('foo');
+        const api2 = isolationAPI('foo');
 
         expect(api1).toBe(api2);
     });
@@ -32,7 +32,7 @@ describe('isolationAPI', () => {
         const root = { prepend } as any;
         const linkTag = { textContent: 'linkTag1' } as Node;
 
-        const { insertStyle } = isolationAPI({ name: 'foo', root });
+        const { insertStyle } = isolationAPI('foo', { root });
         insertStyle(linkTag);
 
         expect(prepend).toBeCalledWith(linkTag);
@@ -45,7 +45,7 @@ describe('isolationAPI', () => {
         const linkTag1 = { textContent: 'linkTag1' } as Node;
         const linkTag2 = { textContent: 'linkTag2' } as Node;
 
-        const { insertStyle, bindStyles } = isolationAPI({ name: 'foo', root });
+        const { insertStyle, bindStyles } = isolationAPI('foo', { root });
         insertStyle(linkTag1);
         insertStyle(linkTag2);
         prepend.mockClear();
