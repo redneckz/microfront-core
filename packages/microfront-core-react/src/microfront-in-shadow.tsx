@@ -32,7 +32,7 @@ export function MicroFrontInShadow({ route, bootstrap, renderError = defaultErro
         if (!shadowRoot) return;
 
         return bootstrap({ route, root: shadowRoot });
-    }, [route, shadowRoot]);
+    }, [bootstrap, route, shadowRoot]);
 
     const [bootstrappedModule, error] = useBootstrap(bootstrapModule);
 

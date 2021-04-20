@@ -1,9 +1,14 @@
+import { container } from './microfront-isolation-api.container';
+
 const BOUND_API_FIELD = Symbol();
 
 /**
  * Kind of internal API used by low-level modules to isolate everything in the right way ;)
  */
 export interface MicroFrontIsolationAPI {
+    // Isolate global API
+    container(task: () => void): void;
+
     bindStyles(): void;
     unbindStyles(): void;
 
@@ -27,7 +32,10 @@ export function isolationAPI(name: string, { root }: { root?: Node & ParentNode 
     }
 
     const cache: { styles: Node[] } = { styles: [] };
+
     moduleVar[BOUND_API_FIELD] = {
+        container: container({ name }),
+
         bindStyles: () => {
             if (!root) return;
             root.prepend(...cache.styles);
@@ -36,6 +44,7 @@ export function isolationAPI(name: string, { root }: { root?: Node & ParentNode 
             if (!root) return;
             cache.styles.forEach(_ => root.removeChild(_));
         },
+
         insertStyle: style => {
             if (!root) return;
             root.prepend(style);

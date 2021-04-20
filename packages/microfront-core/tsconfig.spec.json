@@ -4,7 +4,8 @@
     "noEmit": true,
     "types": [
       "jest",
-      "node"
+      "node",
+      "zone.js"
     ],
     "module": "commonjs",
     "emitDecoratorMetadata": false,
