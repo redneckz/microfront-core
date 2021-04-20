@@ -1403,7 +1403,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                     [
                                         'webpack-cli',
                                         'virtual:c812fc0ccd8fccebb2b90887e099af6e7e2b7573bb14b7521fa25f9a3de74b2f62c0effeb1f98c0360be5b4fa618f55ba8bfe7619a8481ad939c4cb6722c6aac#npm:4.6.0'
-                                    ]
+                                    ],
+                                    ['zone.js', 'npm:0.11.4']
                                 ],
                                 linkType: 'SOFT'
                             }
@@ -14405,6 +14406,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
                                 packageLocation:
                                     './.yarn/cache/yocto-queue-npm-0.1.0-c6c9a7db29-096c3b40be.zip/node_modules/yocto-queue/',
                                 packageDependencies: [['yocto-queue', 'npm:0.1.0']],
+                                linkType: 'HARD'
+                            }
+                        ]
+                    ]
+                ],
+                [
+                    'zone.js',
+                    [
+                        [
+                            'npm:0.11.4',
+                            {
+                                packageLocation:
+                                    './.yarn/cache/zone.js-npm-0.11.4-bbe51abec8-737caa3bbc.zip/node_modules/zone.js/',
+                                packageDependencies: [
+                                    ['zone.js', 'npm:0.11.4'],
+                                    ['tslib', 'npm:2.2.0']
+                                ],
                                 linkType: 'HARD'
                             }
                         ]

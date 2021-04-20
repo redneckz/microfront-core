@@ -9,11 +9,11 @@ Microfrontend toolset
 
 # Packages
 
-[Microfrontend Core Library](./packages/microfront-core/README.md)
+[Micro Frontend Core Library](./packages/microfront-core/README.md)
+
+[Micro Frontend Core Library for React](./packages/microfront-core-react/README.md)
 
 [Webpack Module Federation Utils](./packages/module-federation-utils/README.md)
-
-[Microfrontend Core Library for React](./packages/microfront-core-react/README.md)
 
 # Containers Isolation
 
@@ -121,21 +121,20 @@ module.exports = {
 
 ## Step #4 [React] Host Container
 
-```ts
+```tsx
 import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 
 import { register } from '@redneckz/microfront-core';
 import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
 
+const bootstrap = register(
+    'foo', // remote module name according to Module Federation config
+    () => import('foo/foo-page') //  remote module
+);
+
 const FooInShadowComponent: React.FC = () => (
-    <MicroFrontInShadow
-        route="path/to/foo"
-        bootstrap={register(
-            'foo', // remote module name according to Module Federation config
-            () => import('foo/foo-page') //  remote module
-        )}
-    >
+    <MicroFrontInShadow route="path/to/foo" bootstrap={bootstrap}>
         {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
     </MicroFrontInShadow>
 );
@@ -159,15 +158,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { register } from '@redneckz/microfront-core';
 import { MicroFrontCoreModule } from '@redneckz/microfront-core-angular';
 
+const bootstrap = register(
+    'foo', // remote module name according to Module Federation config
+    () => import('foo/foo-page') //  remote module
+);
+
 @Component({
     // "microfront-in-shadow" is a part of "MicroFrontCoreModule"
     template: '<microfront-in-shadow route="path/to/foo" [bootstrap]="bootstrap"></microfront-in-shadow>'
 })
 export class FooInShadowComponent {
-    bootstrap = register(
-        'foo', // remote module name according to Module Federation config
-        () => import('foo/foo-page') //  remote module
-    );
+    bootstrap = bootstrap;
 }
 
 const routes: Routes = [
@@ -191,7 +192,7 @@ export class AppRoutingModule {}
 
 ## Step #5 [React] Micro Frontend
 
-```ts
+```tsx
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Router } from 'react-router-dom';
