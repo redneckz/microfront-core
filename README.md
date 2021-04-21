@@ -2,10 +2,26 @@
 
 Microfrontend toolset
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][build-image]][build-url]
-[![Coverage Status][coverage-image]][coverage-url]
-[![Bundle size][bundlephobia-image]][bundlephobia-url]
+[![pipeline status](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/badges/main/pipeline.svg?ignore_skipped=true)](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/-/commits/main)
+[![coverage report](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/badges/main/coverage.svg)](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/-/commits/main)
+
+# How-to
+
+```shell
+$ yarn # Prepare
+$ yarn build # Build all packages
+$ yarn test # Test all packages
+$ yarn workspace @redneckz/microfront-core build # Build specific package
+$ yarn workspace @redneckz/microfront-core test # Test specific package
+```
+
+# Release Flow
+
+https://yarnpkg.com/features/release-workflow
+
+```shell
+$ yarn version check --interactive
+```
 
 # Packages
 

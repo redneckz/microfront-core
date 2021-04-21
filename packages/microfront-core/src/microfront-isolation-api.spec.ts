@@ -40,13 +40,13 @@ describe('isolationAPI', () => {
                 }
             } as Storage;
 
-            // First miro frontend
+            // First micro frontend
             (globalThis as any).foo = {};
             const fooAPI = isolationAPI('foo');
             fooAPI.container(() => {
                 globalThis.localStorage.setItem('key', 'foo');
             });
-            // Second miro frontend
+            // Second micro frontend
             (globalThis as any).bar = {};
             const barAPI = isolationAPI('bar');
             barAPI.container(() => {

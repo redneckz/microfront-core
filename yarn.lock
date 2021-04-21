@@ -711,7 +711,7 @@ __metadata:
     typescript: 4.2.3
     webpack: 5.31.0
     webpack-cli: 4.6.0
-    zone.js: 0.11.4
+    zone.js: ^0.11.4
   languageName: unknown
   linkType: soft
 
@@ -7720,7 +7720,7 @@ typescript@4.2.3:
   languageName: node
   linkType: hard
 
-"zone.js@npm:0.11.4":
+"zone.js@npm:^0.11.4":
   version: 0.11.4
   resolution: "zone.js@npm:0.11.4"
   dependencies:
