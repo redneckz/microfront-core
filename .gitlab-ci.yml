@@ -62,6 +62,7 @@ publish:core:
     - echo Going to publish changed packages...
     - yarn workspaces foreach --no-private -v npm publish --tolerate-republish
   dependencies:
+    - build:core
     - test:core
   only:
     refs:
