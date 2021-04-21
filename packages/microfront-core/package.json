@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "clean": "rimraf dist lib out-tsc",
-    "build": "yarn clean && yarn build:tsc && webpack --mode=production",
+    "build": "yarn clean && yarn build:tsc --incremental false && webpack --mode=production",
     "build:tsc": "tsc --outDir lib",
     "build:dev": "webpack --mode=development",
     "test": "jest --coverage"
