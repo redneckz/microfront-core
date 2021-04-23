@@ -24,9 +24,9 @@ export function moduleFederationOptions(options: {
 }): ModuleFederationPluginOptions {
     const { name, exposes, remotes } = options;
     return Object.assign(
-        {
-            name,
-            remotes: remotes?.map(remoteURL)
+        { name },
+        remotes && {
+            remotes: Object.assign({}, ...remotes.map(remoteURL))
         },
         exposes && {
             library: { type: 'var', name },
@@ -44,7 +44,7 @@ export function moduleFederationOptions(options: {
  *
  * @returns foo@https://localhost:4200/remoteEntry.js
  */
-function remoteURL([name, baseURL]: RemoteURL): string {
+function remoteURL([name, baseURL]: RemoteURL): { [name in string]: string } {
     // remote entry filename is standardized
-    return `${name}@${baseURL}/${DEFAULT_ENTRY_FILENAME}`;
+    return { [name]: `${name}@${baseURL}/${DEFAULT_ENTRY_FILENAME}` };
 }

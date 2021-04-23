@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "out-tsc/lib",
+    "types": ["node"],
+    "jsx": "react",
+    "isolatedModules": false
+  },
+  "files": [
+    "src/index.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

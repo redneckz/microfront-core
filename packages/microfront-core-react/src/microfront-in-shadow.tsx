@@ -12,7 +12,7 @@ export interface MicroFrontInShadowProps {
     bootstrap: MicroFrontModuleBootstrap;
 
     renderError?: (error: Error) => React.ReactNode;
-    children: (mountingRootRef: React.RefObject<any>) => React.ReactNode;
+    children: (mountingRootRef: React.RefCallback<any>) => React.ReactNode;
 }
 
 /**

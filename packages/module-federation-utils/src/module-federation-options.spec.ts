@@ -16,7 +16,10 @@ describe('moduleFederationOptions', () => {
             })
         ).toEqual({
             name: 'foo',
-            remotes: ['bar@https://localhost:4201/remoteEntry.js', 'baz@https://localhost:4202/remoteEntry.js']
+            remotes: {
+                bar: 'bar@https://localhost:4201/remoteEntry.js',
+                baz: 'baz@https://localhost:4202/remoteEntry.js'
+            }
         });
     });
 
