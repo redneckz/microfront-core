@@ -4,6 +4,9 @@
 packages/*/dist/
 packages/*/lib/
 packages/*/out-tsc/
+demo/*/dist/
+demo/*/lib/
+demo/*/out-tsc/
 
 # dependencies
 node_modules/
