@@ -61,6 +61,10 @@ publish:core:
     - git status
     - echo Going to publish changed packages...
     - yarn workspaces foreach --no-private -v npm publish --tolerate-republish
+    - echo Going to publish changed packages to secondary registry...
+    - export NPM_REGISTRY="$SECONDARY_NPM_REGISTRY"
+    - export NPM_REGISTRY_AUTH="$SECONDARY_NPM_REGISTRY_AUTH"
+    - yarn workspaces foreach --no-private -v npm publish --tolerate-republish
   dependencies:
     - build:core
     - test:core
