@@ -10,13 +10,13 @@ jest.mock('react-dom', () => ({
     createPortal: jest.fn(children => children)
 }));
 jest.mock('./use-shadow', () => ({
-    useShadow: jest.fn(() => [null, { current: null }])
+    useShadow: jest.fn(() => [null, jest.fn()])
 }));
 jest.mock('./use-bootstrap', () => ({
     useBootstrap: jest.fn(() => [null, null])
 }));
 jest.mock('./use-mount', () => ({
-    useMount: jest.fn(() => ({ current: null }))
+    useMount: jest.fn(() => jest.fn())
 }));
 
 describe('MicroFrontInShadow', () => {
@@ -84,7 +84,7 @@ describe('MicroFrontInShadow', () => {
 
         const mountingRootRef = { current: { nodeName: 'mountingRootRef' } as Element };
         (useMount as jest.Mock).mockReturnValueOnce(mountingRootRef);
-        const children = jest.fn((ref: React.RefObject<any>) => <div ref={ref}>children</div>);
+        const children = jest.fn((ref: React.RefCallback<any>) => <div ref={ref}>children</div>);
 
         const testRenderer = TestRenderer.create(
             <MicroFrontInShadow bootstrap={() => Promise.resolve({} as any)}>{children}</MicroFrontInShadow>

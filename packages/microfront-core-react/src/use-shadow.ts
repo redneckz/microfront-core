@@ -1,14 +1,11 @@
-import { useRef, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
-export function useShadow<T extends Element>(): [ShadowRoot | null, React.RefObject<T>] {
-    const rootRef = useRef<T>(null);
-    const { current: root } = rootRef;
-
-    useEffect(() => {
+export function useShadow<T extends Element>(): [ShadowRoot | null, React.RefCallback<T>] {
+    const [shadowRoot, setShadowRoot] = useState<ShadowRoot | null>(null);
+    const rootRef = useCallback(root => {
         if (!root || root.shadowRoot) return;
 
-        root.attachShadow({ mode: 'open' });
-    }, [root]);
-
-    return [root && root.shadowRoot, rootRef];
+        setShadowRoot(root.attachShadow({ mode: 'open' }));
+    }, []);
+    return [shadowRoot, rootRef];
 }

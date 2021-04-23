@@ -144,20 +144,18 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import { register } from '@redneckz/microfront-core';
 import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
 
-const bootstrap = register(
+const bootstrapFoo = register(
     'foo', // remote module name according to Module Federation config
     () => import('foo/foo-page') //  remote module
 );
 
-const FooInShadowComponent: React.FC = () => (
-    <MicroFrontInShadow route="path/to/foo" bootstrap={bootstrap}>
-        {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-    </MicroFrontInShadow>
-);
-
 export const App: React.FC = () => (
     <Switch>
-        <Route path="path/to/foo" component={FooInShadowComponent} />
+        <Route path="path/to/foo">
+            <MicroFrontInShadow route="path/to/foo" bootstrap={bootstrapFoo}>
+                {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
+            </MicroFrontInShadow>
+        </Route>
         ...
     </Switch>
 );
@@ -174,7 +172,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { register } from '@redneckz/microfront-core';
 import { MicroFrontCoreModule } from '@redneckz/microfront-core-angular';
 
-const bootstrap = register(
+const bootstrapFoo = register(
     'foo', // remote module name according to Module Federation config
     () => import('foo/foo-page') //  remote module
 );
@@ -184,7 +182,7 @@ const bootstrap = register(
     template: '<microfront-in-shadow route="path/to/foo" [bootstrap]="bootstrap"></microfront-in-shadow>'
 })
 export class FooInShadowComponent {
-    bootstrap = bootstrap;
+    bootstrap = bootstrapFoo;
 }
 
 const routes: Routes = [

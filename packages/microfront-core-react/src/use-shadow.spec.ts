@@ -1,11 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useShadow } from './use-shadow';
 
 jest.mock('react', () => ({
-    useRef: jest.fn(() => ({
-        current: null
-    })),
-    useEffect: jest.fn(effect => effect())
+    useState: jest.fn(() => [undefined, jest.fn()]),
+    useCallback: jest.fn(callback => callback)
 }));
 
 describe('useShadow', () => {
@@ -13,30 +11,22 @@ describe('useShadow', () => {
         jest.clearAllMocks();
     });
 
-    it('should return attached shadow root and root node reference', () => {
-        expect.assertions(2);
-
+    it('should return attached shadow root', () => {
         const shadowRoot = {} as ShadowRoot;
-        const rootRef = { current: { shadowRoot } as Element };
-        (useRef as jest.Mock).mockReturnValueOnce(rootRef);
+        (useState as jest.Mock).mockReturnValueOnce([shadowRoot, jest.fn()]);
 
         const pair = useShadow();
 
         expect(pair[0]).toBe(shadowRoot);
-        expect(pair[1]).toBe(rootRef);
     });
 
     it('should attach shadow to the provided node', () => {
-        expect.assertions(2);
-
         const attachShadow = jest.fn() as Element['attachShadow'];
-        (useRef as jest.Mock).mockReturnValueOnce({
-            current: { attachShadow } as Element
-        });
+        const root = { attachShadow } as Element;
 
-        useShadow();
+        const [, effect] = useShadow();
+        effect(root);
 
-        expect(useEffect).toBeCalledTimes(1);
         expect(attachShadow).toBeCalledWith({ mode: 'open' });
     });
 
