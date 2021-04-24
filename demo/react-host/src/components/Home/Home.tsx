@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Markdown } from './Markdown';
+import { Markdown } from '../Markdown';
 
 export const Home: React.FC = () => (
     <Markdown>

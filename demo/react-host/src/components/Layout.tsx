@@ -9,7 +9,6 @@
  import Grid from '@material-ui/core/Grid';
 
  import { Header } from './Header';
- import { FeaturedPost, FeaturedPostModel } from './FeaturedPost';
  import { Main } from './Main';
  import { Footer } from './Footer';
 
@@ -26,24 +25,12 @@
      { title: 'Travel', url: '/travel' }
  ];
 
- const featuredPosts: FeaturedPostModel[] = [
-     {
-         title: 'Featured post',
-         date: 'Nov 12',
-         description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-         image: 'https://source.unsplash.com/random',
-         imageTitle: 'Image Text'
-     },
-     {
-         title: 'Post title',
-         date: 'Nov 11',
-         description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
-         image: 'https://source.unsplash.com/random',
-         imageTitle: 'Image Text'
-     }
- ];
+ interface LayoutProps {
+    ads?: React.ReactNode,
+    children: React.ReactNode,
+ }
 
- export const Layout: React.FC = ({ children }) => {
+ export const Layout: React.FC<LayoutProps> = ({ ads, children }) => {
      const classes = useStyles();
 
      return (
@@ -52,11 +39,7 @@
              <Container maxWidth="lg">
                  <Header title="Micro Frontend Host Container" sections={sections} />
                  <main>
-                     <Grid container spacing={4}>
-                         {featuredPosts.map(post => (
-                             <FeaturedPost key={post.title} post={post} />
-                         ))}
-                     </Grid>
+                     {ads}
                      <Grid container spacing={5} className={classes.mainGrid}>
                          <Main title="Micro Frontends">
                              {children}

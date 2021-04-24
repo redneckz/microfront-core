@@ -1,0 +1,1 @@
+export { FeaturedPostsList } from './FeaturedPostsList';
