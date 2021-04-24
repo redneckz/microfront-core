@@ -13,6 +13,7 @@ export const bootstrap: MicroFrontModuleBootstrap = async () => {
         mount: async mountingRoot => {
             const jss = create({
                 plugins: jssPreset().plugins,
+                // Isolation of styles behind Shadow DOM
                 insertionPoint: mountingRoot as HTMLElement
             });
             render(
