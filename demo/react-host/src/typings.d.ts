@@ -1,1 +1,2 @@
-declare module 'reactHost/home';
+declare module 'reactHost/Home';
+declare module 'reactHost/FeaturedPostsList';

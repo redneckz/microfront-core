@@ -436,6 +436,7 @@ __metadata:
     "@types/terser-webpack-plugin": ^5
     "@types/webpack-dev-server": ^3
     html-webpack-plugin: 5.3.1
+    jss: 10.6.0
     markdown-to-jsx: ^7.1.2
     react: 17.0.2
     react-dom: 17.0.2
