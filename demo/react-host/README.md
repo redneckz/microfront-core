@@ -1,37 +1,30 @@
-# @redneckz/microfront-core-react
+# [React] Demo of Omni-Container
 
-Microfrontend Core Library for React
+Omni-container provides and consumes remote modules. Such a container may consist of "local" micro frontends.
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][build-image]][build-url]
-[![Coverage Status][coverage-image]][coverage-url]
-[![Bundle size][bundlephobia-image]][bundlephobia-url]
+## How-to
 
-# Installation
-
-```bash
-$ npm install --save @redneckz/microfront-core-react
+```shell
+$ yarn # install deps
+$ yarn start # http://localhost:8080
 ```
 
-or:
+## Description
 
-```bash
-$ yarn add @redneckz/microfront-core-react
-```
+Please take a look at the following major parts:
 
-# Usage
+-   `webpack.config.js` - module federation setup
+-   `src/components/Home/Home.bootstrap.tsx` - micro frontend wrapper of `Home.tsx`
+-   `src/components/FeaturedPostsList/FeaturedPostsList.bootstrap.tsx` - micro frontend wrapper of `FeaturedPostsList.tsx`
+-   `src/components/App.tsx` - host container definition (see bootstrap functions)
+-   And finally `src/typings.d.ts` - some placeholders to make TypeScript happy
 
-TODO
+## Requirements
+
+-   `React 17` to support rendering to Shadow DOM
+-   `Webpack 5` (all plugins should be updated to the latest versions)
+-   Do not forget to define `publicPath: '...'` and use `@redneckz/module-federation-utils`
 
 # License
 
 [MIT](http://vjpr.mit-license.org)
-
-[npm-image]: https://badge.fury.io/js/%40redneckz%2Fmicrofront-core.svg
-[npm-url]: https://www.npmjs.com/package/%40redneckz%2Fmicrofront-core
-[build-image]: https://cloud.drone.io/api/badges/redneckz/microfront-core/status.svg
-[build-url]: https://cloud.drone.io/redneckz/microfront-core
-[coverage-image]: https://codecov.io/gh/redneckz/microfront-core/branch/main/graph/badge.svg?token=WMWRVVHT0C
-[coverage-url]: https://codecov.io/gh/redneckz/microfront-core
-[bundlephobia-image]: https://badgen.net/bundlephobia/min/@redneckz/microfront-core
-[bundlephobia-url]: https://bundlephobia.com/result?p=@redneckz/microfront-core
