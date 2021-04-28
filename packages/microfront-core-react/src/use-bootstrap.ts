@@ -15,7 +15,7 @@ export function useBootstrap(
         } catch (ex) {
             setError(ex);
         }
-    }, [bootstrap, bootstrappedModule, setModule, error, setError]);
+    }, [bootstrap, bootstrappedModule, error]);
 
     useEffect(() => {
         bootstrapModule();
