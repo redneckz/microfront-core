@@ -25,7 +25,12 @@ export interface MicroFrontInShadowProps {
  * @param children - kind of loading and success handler
  * @returns
  */
-export function MicroFrontInShadow({ route, bootstrap, renderError = defaultErrorRenderer, children }: MicroFrontInShadowProps) {
+export function MicroFrontInShadow({
+    route,
+    bootstrap,
+    renderError = defaultErrorRenderer,
+    children
+}: MicroFrontInShadowProps) {
     const [shadowRoot, rootRef] = useShadow<HTMLDivElement>();
 
     const bootstrapModule = useCallback(async () => {

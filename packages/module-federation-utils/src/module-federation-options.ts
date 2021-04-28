@@ -22,9 +22,19 @@ export function moduleFederationOptions(options: {
     remotes?: RemoteURL[];
     shared?: ModuleFederationPluginOptions['shared'];
 }): ModuleFederationPluginOptions {
-    const { name, exposes, remotes } = options;
+    const { name, exposes, remotes, shared } = options;
     return Object.assign(
-        { name },
+        {
+            name,
+            shared: {
+                'zone.js': {
+                    eager: true,
+                    singleton: true,
+                    requiredVersion: '^0.11.0'
+                },
+                ...shared
+            }
+        },
         remotes && {
             remotes: Object.assign({}, ...remotes.map(remoteURL))
         },

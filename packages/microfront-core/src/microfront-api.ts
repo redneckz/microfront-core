@@ -1,5 +1,10 @@
-import { MicroFrontIsolation, MicroFrontModule, MicroFrontModuleBootstrap } from './microfront-api.model';
-import { isolationAPI } from './microfront-isolation-api';
+import {
+    MicroFrontBootstrappedModule,
+    MicroFrontIsolation,
+    MicroFrontModule,
+    MicroFrontModuleBootstrap
+} from './microfront-api.model';
+import { isolateModule, bindStyles, unbindStyles, wrap } from './microfront-isolation-api';
 
 /**
  * Registers MF module
@@ -24,19 +29,20 @@ export function register(
     if (isolation === MicroFrontIsolation.SANDBOX) {
         throw new Error('MicroFrontIsolation.SANDBOX isolation level is not supported yet...');
     }
-    return async api => {
-        const { bootstrap } = await module();
-        const { mount, unmount } = await bootstrap(api);
-        const { bindStyles, unbindStyles } = isolationAPI(name, { root: api.root });
-        return {
-            async mount(mountingRoot) {
-                bindStyles();
-                await mount(mountingRoot);
-            },
-            async unmount(mountingRoot) {
-                await unmount(mountingRoot);
-                unbindStyles();
-            }
-        };
-    };
+    return isolateModule(name)(
+        async (params): Promise<MicroFrontBootstrappedModule> => {
+            const { bootstrap } = await module();
+            const { mount, unmount } = await bootstrap(params);
+            return {
+                mount: wrap(async mountingRoot => {
+                    bindStyles();
+                    await mount(mountingRoot);
+                }, 'mount'),
+                unmount: wrap(async mountingRoot => {
+                    await unmount(mountingRoot);
+                    unbindStyles();
+                }, 'mount')
+            };
+        }
+    );
 }

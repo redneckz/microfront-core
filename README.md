@@ -69,7 +69,7 @@ Host container is a kind of orchestrator. It loads remote modules by means of Mo
 
 ```js
 const webpack = require('webpack');
-const { moduleFederationOptions, shareScope } = require('@redneckz/module-federation-utils');
+const { moduleFederationOptions } = require('@redneckz/module-federation-utils');
 
 module.exports = {
   output: {
@@ -88,9 +88,7 @@ module.exports = {
         remotes: [
           ['foo', 'https://foo-domain'],
           ['bar', 'https://bar-domain']
-        ],
-        // Packages shared across containers
-        shared: shareScope(require('./package.json'), '@angular')
+        ]
       })
     ),
   ],
@@ -101,7 +99,8 @@ module.exports = {
 
 ```js
 const webpack = require('webpack');
-const { moduleFederationOptions, shareScope, insertStyleSafely } = require('@redneckz/module-federation-utils');
+const { moduleFederationOptions } = require('@redneckz/module-federation-utils');
+const { insertStyle } = require('@redneckz/microfront-core');
 
 module.exports = {
   output: {
@@ -116,7 +115,7 @@ module.exports = {
       filename: '[name].css',
       // Custom insert is required in order to isolate micro frontends from each other
       // In context of host container styles should be inserted into mounting root
-      insert: insertStyleSafely('foo')
+      insert: insertStyle
     }),
     ...
     new webpack.container.ModuleFederationPlugin(
@@ -127,8 +126,6 @@ module.exports = {
           './foo-page': './src/pages/foo-page/foo-page.tsx',
           './other-page': './src/pages/other-page/other-page.tsx'
         }
-        // Packages shared across containers
-        shared: shareScope(require('./package.json'), 'react')
       })
     ),
   ],
@@ -212,6 +209,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { Router } from 'react-router-dom';
 
 import { MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
+import { Container } from '@redneckz/microfront-core-react';
 
 // Each and every micro frontend should implement async "bootstrap" function
 export const bootstrap: MicroFrontModuleBootstrap = async ({ route: rootRoute }) => {
@@ -225,9 +223,11 @@ export const bootstrap: MicroFrontModuleBootstrap = async ({ route: rootRoute })
     return {
         mount: async mountingRoot => {
             render(
-                <Router history={history}>
-                    <App />
-                </Router>,
+                <Container>
+                    <Router history={history}>
+                        <App />
+                    </Router>
+                </Container>,
                 mountingRoot
             );
         },

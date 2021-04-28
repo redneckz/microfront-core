@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { moduleFederationOptions, shareScope } = require('@redneckz/module-federation-utils');
+const { moduleFederationOptions } = require('@redneckz/module-federation-utils');
+const { insertStyle } = require('@redneckz/microfront-core');
 
 module.exports = {
     entry: './src/index.ts',
@@ -17,6 +18,10 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader'
+            },
+            {
+                test: /\.css$/i,
+                use: [{ loader: 'style-loader', options: { insert: insertStyle } }, 'css-loader']
             }
         ]
     },
@@ -29,7 +34,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Micro Frontend Host Container'
+            title: 'Micro Frontend Host Container',
+            excludeChunks: ['reactHost']
         }),
         new webpack.container.ModuleFederationPlugin({
             ...moduleFederationOptions({
@@ -38,7 +44,23 @@ module.exports = {
                     './Home': './src/components/Home/Home.bootstrap.tsx',
                     './FeaturedPostsList': './src/components/FeaturedPostsList/FeaturedPostsList.bootstrap.tsx'
                 },
-                shared: shareScope(require('./package.json'), 'react')
+                shared: {
+                    react: {
+                        eager: true,
+                        singleton: true,
+                        requiredVersion: '^17.0.0'
+                    },
+                    'react-dom': {
+                        eager: true,
+                        singleton: true,
+                        requiredVersion: '^17.0.0'
+                    },
+                    'react-router-dom': {
+                        eager: true,
+                        singleton: true,
+                        requiredVersion: '^5.0.0'
+                    }
+                }
             }),
             remotes: ['reactHost']
         })

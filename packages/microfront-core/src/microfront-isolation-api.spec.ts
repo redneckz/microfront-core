@@ -1,95 +1,113 @@
-import { isolationAPI } from './microfront-isolation-api';
+import 'zone.js';
 
-describe('isolationAPI', () => {
+import { isolateModule, insertStyle, bindStyles, unbindStyles, container } from './microfront-isolation-api';
+
+// localStorage mock
+const storage: Record<string, string> = {};
+(globalThis as any).localStorage = {
+    getItem: (key: string) => storage[key],
+    setItem: (key: string, val: string) => {
+        storage[key] = val;
+    }
+} as Storage;
+
+describe('isolateModule', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
 
-    it('should throw an exception if remote module has not been loaded', () => {
-        expect(() => isolationAPI('foo')).toThrowError('foo');
-    });
-
-    it('should bind isolation API to the loaded remote module', () => {
-        (globalThis as any).foo = {};
-
-        const api = isolationAPI('foo');
-
-        expect(api).toBeTruthy();
-    });
-
-    it('should return already bound isolation API on consequent calls', () => {
-        (globalThis as any).foo = {};
-
-        const api1 = isolationAPI('foo');
-        const api2 = isolationAPI('foo');
-
-        expect(api1).toBe(api2);
-    });
-
     describe('container', () => {
         // Integration testing
-        it('should isolate invocations of Storage API relative to micro frontend instance', () => {
-            expect.assertions(3);
+        it('should produce wrapper to isolate arbitrary callbacks', () => {
+            expect.assertions(1);
 
-            // localStorage mock
-            const storage: Record<string, string> = {};
-            (globalThis as any).localStorage = {
-                getItem: (key: string) => storage[key],
-                setItem: (key: string, val: string) => {
-                    storage[key] = val;
-                }
-            } as Storage;
+            let wrap: ReturnType<typeof container> | undefined = undefined;
+            // First micro frontend
+            const bootstrapFoo = isolateModule('foo')(() => {
+                wrap = container();
+            });
+            bootstrapFoo({});
+
+            if (wrap) {
+                (wrap as ReturnType<typeof container>)(() => {
+                    expect(Zone.current.name).toBe('foo');
+                })();
+            }
+        });
+    });
+
+    describe('global API isolation', () => {
+        // Integration testing
+        it('should isolate invocations of Storage API relative to micro frontend instance', () => {
+            expect.assertions(5);
 
             // First micro frontend
-            (globalThis as any).foo = {};
-            const fooAPI = isolationAPI('foo');
-            fooAPI.container(() => {
+            const bootstrapFoo = isolateModule('foo')(() => {
+                expect(globalThis.localStorage.getItem('key')).toBe(undefined);
                 globalThis.localStorage.setItem('key', 'foo');
-            });
-            // Second micro frontend
-            (globalThis as any).bar = {};
-            const barAPI = isolationAPI('bar');
-            barAPI.container(() => {
-                globalThis.localStorage.setItem('key', 'bar');
-            });
-
-            fooAPI.container(() => {
                 expect(globalThis.localStorage.getItem('key')).toBe('foo');
             });
-            barAPI.container(() => {
+            bootstrapFoo({});
+            // Second micro frontend
+            const bootstrapBar = isolateModule('bar')(() => {
+                expect(globalThis.localStorage.getItem('key')).toBe(undefined);
+                globalThis.localStorage.setItem('key', 'bar');
                 expect(globalThis.localStorage.getItem('key')).toBe('bar');
             });
+            bootstrapBar({});
+
             expect(storage).toEqual({ 'foo-key': 'foo', 'bar-key': 'bar' });
         });
     });
 
     describe('styles isolation', () => {
         it('should prepend styles into the remote module root by means of "insertStyle" function', () => {
-            (globalThis as any).foo = {};
             const prepend = jest.fn();
             const root = { prepend } as any;
             const linkTag = { textContent: 'linkTag1' } as Node;
 
-            const { insertStyle } = isolationAPI('foo', { root });
-            insertStyle(linkTag);
+            const bootstrapFoo = isolateModule('foo')(() => {
+                insertStyle(linkTag);
+            });
+            bootstrapFoo({ root });
 
             expect(prepend).toBeCalledWith(linkTag);
         });
 
         it('should reinitialize all previously inserted styles by means of "bindStyles" function', () => {
-            (globalThis as any).foo = {};
             const prepend = jest.fn();
             const root = { prepend } as any;
             const linkTag1 = { textContent: 'linkTag1' } as Node;
             const linkTag2 = { textContent: 'linkTag2' } as Node;
 
-            const { insertStyle, bindStyles } = isolationAPI('foo', { root });
-            insertStyle(linkTag1);
-            insertStyle(linkTag2);
-            prepend.mockClear();
-            bindStyles();
+            const bootstrapFoo = isolateModule('foo')(() => {
+                insertStyle(linkTag1);
+                insertStyle(linkTag2);
+                prepend.mockClear();
+                bindStyles();
+            });
+            bootstrapFoo({ root });
 
             expect(prepend).toBeCalledWith(linkTag1, linkTag2);
+        });
+
+        it('should reinitialize all previously inserted styles by means of "bindStyles" function', () => {
+            expect.assertions(2);
+
+            const removeChild = jest.fn();
+            const root = { prepend: () => {}, removeChild } as any;
+            const linkTag1 = { textContent: 'linkTag1' } as Node;
+            const linkTag2 = { textContent: 'linkTag2' } as Node;
+
+            const bootstrapFoo = isolateModule('foo')(() => {
+                insertStyle(linkTag1);
+                insertStyle(linkTag2);
+                unbindStyles();
+            });
+            bootstrapFoo({ root });
+
+            expect(removeChild).toBeCalledWith(linkTag1);
+            expect(removeChild).toBeCalledWith(linkTag2);
         });
     });
 });

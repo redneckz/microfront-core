@@ -2,7 +2,7 @@ import { moduleFederationOptions } from './module-federation-options';
 
 describe('moduleFederationOptions', () => {
     it('should return name of module as the only required part of ModuleFederationPlugin options', () => {
-        expect(moduleFederationOptions({ name: 'foo' })).toEqual({ name: 'foo' });
+        expect(moduleFederationOptions({ name: 'foo' })).toMatchObject({ name: 'foo' });
     });
 
     it('should compute ModuleFederationPlugin "remotes" option based on simplified definition with fixed remote entry name', () => {
@@ -14,7 +14,7 @@ describe('moduleFederationOptions', () => {
                     ['baz', 'https://localhost:4202']
                 ]
             })
-        ).toEqual({
+        ).toMatchObject({
             name: 'foo',
             remotes: {
                 bar: 'bar@https://localhost:4201/remoteEntry.js',
@@ -31,7 +31,7 @@ describe('moduleFederationOptions', () => {
                     './module': './src/app/foo.module.ts'
                 }
             })
-        ).toEqual({
+        ).toMatchObject({
             name: 'foo',
             // Module should be exposed as a var to support a wide variety of runtime contexts
             library: { type: 'var', name: 'foo' },

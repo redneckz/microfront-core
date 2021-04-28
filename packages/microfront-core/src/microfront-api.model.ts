@@ -4,7 +4,7 @@ export enum MicroFrontIsolation {
 }
 
 // Revealed API provided by host container
-export interface MicroFrontAPI {
+export interface MicroFrontParams {
     readonly route?: string; // MF root route
     readonly root?: ParentNode & Node; // layout slot dedicated for this particular MF module
 
@@ -16,7 +16,7 @@ export interface MicroFrontBootstrappedModule {
     unmount(mountingRoot: Element): Promise<void>;
 }
 
-export type MicroFrontModuleBootstrap = (api: MicroFrontAPI) => Promise<MicroFrontBootstrappedModule>;
+export type MicroFrontModuleBootstrap = (params: MicroFrontParams) => Promise<MicroFrontBootstrappedModule>;
 
 // This interface should be implemented by remote modules
 export interface MicroFrontModule {

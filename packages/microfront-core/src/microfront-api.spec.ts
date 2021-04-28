@@ -1,12 +1,14 @@
+import 'zone.js';
+
 import { register } from './microfront-api';
-import { MicroFrontAPI, MicroFrontModule } from './microfront-api.model';
-import { isolationAPI } from './microfront-isolation-api';
+import { MicroFrontParams, MicroFrontModule } from './microfront-api.model';
+import { bindStyles } from './microfront-isolation-api';
 
 jest.mock('./microfront-isolation-api', () => ({
-    isolationAPI: jest.fn(() => ({
-        bindStyles: jest.fn(() => {}),
-        unbindStyles: jest.fn(() => {})
-    }))
+    isolateModule: () => <F extends Function>(fn: F): F => fn,
+    bindStyles: jest.fn(() => {}),
+    unbindStyles: jest.fn(() => {}),
+    wrap: jest.fn(fn => fn)
 }));
 
 describe('register', () => {
@@ -30,7 +32,7 @@ describe('register', () => {
     it('should load MF module on bootstrap and delegate call to the original module`s "bootstrap" function', async () => {
         const bootstrapMock = jest.fn(() => Promise.resolve({}));
         const module = () => Promise.resolve<MicroFrontModule>({ bootstrap: bootstrapMock } as any);
-        const api: MicroFrontAPI = {} as any;
+        const api: MicroFrontParams = {} as any;
 
         const bootstrap = register('foo', module);
         await bootstrap(api);
@@ -72,12 +74,6 @@ describe('register', () => {
         const bootstrap = register('foo', module);
         const { mount } = await bootstrap({} as any);
         await mount({} as any);
-
-        const [
-            {
-                value: { bindStyles }
-            }
-        ] = (isolationAPI as any).mock.results;
 
         expect(bindStyles).toBeCalledTimes(1);
     });
