@@ -25,7 +25,7 @@
     "build:dev": "webpack --mode=development",
     "test": "jest --coverage"
   },
-  "dependencies": {
+  "peerDependencies": {
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
@@ -38,6 +38,7 @@
     "tslib": "2.2.0",
     "typescript": "4.2.3",
     "webpack": "5.31.0",
-    "webpack-cli": "4.6.0"
+    "webpack-cli": "4.6.0",
+    "zone.js": "^0.11.4"
   }
 }

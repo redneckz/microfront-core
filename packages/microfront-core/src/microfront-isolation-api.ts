@@ -1,59 +1,93 @@
-import { container } from './microfront-isolation-api.container';
-
-const BOUND_API_FIELD = Symbol();
+import { MicroFrontParams } from './microfront-api.model';
+import { once } from './once';
 
 /**
- * Kind of internal API used by low-level modules to isolate everything in the right way ;)
+ * Configure container to isolate global API
  */
-export interface MicroFrontIsolationAPI {
-    // Isolate global API
-    container(task: () => void): void;
+const configureIsolationContainer = once(() => {
+    require('./microfront-isolation-api.storage').default(() => {
+        const moduleZone = getModuleZone();
+        return moduleZone ? moduleZone.name : undefined;
+    });
+});
 
-    bindStyles(): void;
-    unbindStyles(): void;
-
-    insertStyle(style: Node): void;
+interface ModuleZoneData {
+    root?: Node & ParentNode;
+    styles?: Node[];
 }
 
 /**
- * Isolation API provider. Should bind isolation API to the loaded MF module instance
+ * Isolation API provider
  *
  * @param name - remote module name (defined in Module Federation config)
  * @param root - layout slot dedicated for this particular MF module
- * @returns isolation API to isolate styles and other kinds of stuff related to MF module
+ * @returns isolated callback
  */
-export function isolationAPI(name: string, { root }: { root?: Node & ParentNode } = {}): MicroFrontIsolationAPI {
-    const moduleVar = (globalThis as any)[name];
-    if (!moduleVar) {
-        throw new Error(`Module ${name} should be loaded in order to provide isolation API`);
+export function isolateModule(name: string) {
+    const moduleZone = createModuleZone(name);
+    return <R>(callback: (params: MicroFrontParams) => R): typeof callback =>
+        moduleZone.wrap(params => {
+            configureIsolationContainer();
+            const data = getModuleZoneData();
+            data.root = params.root;
+            return callback(params);
+        }, 'isolate');
+}
+
+export function container() {
+    const moduleZone = assertModuleZone();
+    return <F extends Function>(callback: F): F => moduleZone.wrap(callback, callback.name || 'callback');
+}
+
+export function wrap<F extends Function>(callback: F, source: string): F {
+    return assertModuleZone().wrap(callback, source);
+}
+
+export function bindStyles(): void {
+    const { root, styles = [] } = getModuleZoneData();
+    if (!root) throw new Error('Trying to bind styles outside of micro frontend context');
+
+    root.prepend(...styles);
+}
+
+export function unbindStyles(): void {
+    const { root, styles = [] } = getModuleZoneData();
+    if (!root) throw new Error('Trying to unbind styles outside of micro frontend context');
+
+    styles.forEach(_ => root.removeChild(_));
+}
+
+/**
+ * This function should be self-sufficient (other functions can not be used here),
+ * cause it supposed to be used inside Webpack config
+ * */
+export function insertStyle(style: Node) {
+    try {
+        const data = Zone.current.getZoneWith('microfront')?.get('data');
+        data.root!.prepend(style);
+        if (!data.styles) data.styles = [];
+        data.styles.push(style);
+    } catch (err) {
+        console.warn(err);
+        // fallback
+        document.head.appendChild(style);
     }
-    if (moduleVar[BOUND_API_FIELD]) {
-        return moduleVar[BOUND_API_FIELD];
-    }
+}
 
-    const cache: { styles: Node[] } = { styles: [] };
+function createModuleZone(name: string): Zone {
+    return Zone.current.fork({ name, properties: { microfront: true, data: {} as ModuleZoneData } });
+}
 
-    moduleVar[BOUND_API_FIELD] = {
-        container: container({ name }),
+function getModuleZone(): Zone | null {
+    return Zone.current.getZoneWith('microfront');
+}
 
-        bindStyles: () => {
-            if (!root) return;
-            root.prepend(...cache.styles);
-        },
-        unbindStyles: () => {
-            if (!root) return;
-            cache.styles.forEach(_ => root.removeChild(_));
-        },
+function getModuleZoneData(): ModuleZoneData {
+    return assertModuleZone().get('data');
+}
 
-        insertStyle: style => {
-            if (!root) return;
-            root.prepend(style);
-            cache.styles.push(style);
-        }
-    } as MicroFrontIsolationAPI;
-
-    // TODO Remove
-    moduleVar.insertStyle = moduleVar[BOUND_API_FIELD].insertStyle;
-
-    return moduleVar[BOUND_API_FIELD];
+function assertModuleZone(): Zone {
+    const moduleZone = getModuleZone();
+    if (!moduleZone) throw new Error('Please use isolation API inside micro frontend context');
+    return moduleZone;
 }
