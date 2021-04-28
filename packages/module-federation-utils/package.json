@@ -1,6 +1,6 @@
 {
   "name": "@redneckz/module-federation-utils",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Module Federation Utils",
   "keywords": [
     "webpack",
