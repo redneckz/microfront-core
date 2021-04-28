@@ -5,6 +5,8 @@
 import React from 'react';
 import { Markdown } from '../Markdown';
 
+import './Home.css';
+
 export const Home: React.FC = () => (
     <Markdown>
         {`
