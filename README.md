@@ -208,7 +208,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Router } from 'react-router-dom';
 
-import { MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
+import { container, MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
 import { Container } from '@redneckz/microfront-core-react';
 
 // Each and every micro frontend should implement async "bootstrap" function
@@ -223,7 +223,7 @@ export const bootstrap: MicroFrontModuleBootstrap = async ({ route: rootRoute })
     return {
         mount: async mountingRoot => {
             render(
-                <Container>
+                <Container instance={container()}>
                     <Router history={history}>
                         <App />
                     </Router>

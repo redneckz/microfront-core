@@ -4,10 +4,11 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { create } from 'jss';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 
-import { MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
+import { container, MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
+import { Container } from '@redneckz/microfront-core-react';
 
 export const bootstrap: MicroFrontModuleBootstrap = async () => {
-    const { Home } = await import('./Home');
+    const { Header } = await import('./Header');
 
     return {
         mount: async mountingRoot => {
@@ -17,9 +18,11 @@ export const bootstrap: MicroFrontModuleBootstrap = async () => {
                 insertionPoint: mountingRoot as HTMLElement
             });
             render(
-                <StylesProvider jss={jss}>
-                    <Home />
-                </StylesProvider>,
+                <Container instance={container()}>
+                    <StylesProvider jss={jss}>
+                        <Header title="Micro Frontend Host Container" />
+                    </StylesProvider>
+                </Container>,
                 mountingRoot
             );
         },

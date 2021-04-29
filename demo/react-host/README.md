@@ -17,7 +17,21 @@ Please take a look at the following major parts:
 -   `src/components/Home/Home.bootstrap.tsx` - micro frontend wrapper of `Home.tsx`
 -   `src/components/FeaturedPostsList/FeaturedPostsList.bootstrap.tsx` - micro frontend wrapper of `FeaturedPostsList.tsx`
 -   `src/components/App.tsx` - host container definition (see bootstrap functions)
--   And finally `src/typings.d.ts` - some placeholders to make TypeScript happy
+-   And, finally `src/typings.d.ts` - some placeholders to make TypeScript happy
+
+### Styles isolation
+
+-   `src/components/Home/Home.css` - micro frontend style
+-   `webpack.config.js`
+
+```js
+{
+    test: /\.css$/i,
+    use: [{ loader: 'style-loader', options: { insert: insertStyle } }, 'css-loader']
+}
+```
+
+At runtime inspect Home section for styles under the shadow root.
 
 ## Requirements
 

@@ -41,8 +41,9 @@ module.exports = {
             ...moduleFederationOptions({
                 name: 'reactHost',
                 exposes: {
-                    './Home': './src/components/Home/Home.bootstrap.tsx',
-                    './FeaturedPostsList': './src/components/FeaturedPostsList/FeaturedPostsList.bootstrap.tsx'
+                    './Header': './src/components/Header/Header.bootstrap.tsx',
+                    './FeaturedPostsList': './src/components/FeaturedPostsList/FeaturedPostsList.bootstrap.tsx',
+                    './Home': './src/components/Home/Home.bootstrap.tsx'
                 },
                 shared: {
                     react: {

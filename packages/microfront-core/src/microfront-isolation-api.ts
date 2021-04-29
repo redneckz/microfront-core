@@ -12,7 +12,7 @@ const configureIsolationContainer = once(() => {
 });
 
 interface ModuleZoneData {
-    root?: Node & ParentNode;
+    params?: MicroFrontParams;
     styles?: Node[];
 }
 
@@ -29,7 +29,7 @@ export function isolateModule(name: string) {
         moduleZone.wrap(params => {
             configureIsolationContainer();
             const data = getModuleZoneData();
-            data.root = params.root;
+            data.params = params;
             return callback(params);
         }, 'isolate');
 }
@@ -44,14 +44,14 @@ export function wrap<F extends Function>(callback: F, source: string): F {
 }
 
 export function bindStyles(): void {
-    const { root, styles = [] } = getModuleZoneData();
+    const { params: { root } = {}, styles = [] } = getModuleZoneData();
     if (!root) throw new Error('Trying to bind styles outside of micro frontend context');
 
     root.prepend(...styles);
 }
 
 export function unbindStyles(): void {
-    const { root, styles = [] } = getModuleZoneData();
+    const { params: { root } = {}, styles = [] } = getModuleZoneData();
     if (!root) throw new Error('Trying to unbind styles outside of micro frontend context');
 
     styles.forEach(_ => root.removeChild(_));
@@ -61,17 +61,27 @@ export function unbindStyles(): void {
  * This function should be self-sufficient (other functions can not be used here),
  * cause it supposed to be used inside Webpack config
  * */
-export function insertStyle(style: Node) {
+export function insertStyle(
+    style: Node,
+    fallback: (style: Node) => any = style => {
+        document.head.appendChild(style);
+    }
+) {
     try {
-        const data = Zone.current.getZoneWith('microfront')?.get('data');
-        data.root!.prepend(style);
+        // Inlined
+        const data: ModuleZoneData = Zone.current.getZoneWith('microfront')?.get('data');
+        const { params: { root } = {} } = data;
+        root!.prepend(style);
         if (!data.styles) data.styles = [];
         data.styles.push(style);
     } catch (err) {
         console.warn(err);
-        // fallback
-        document.head.appendChild(style);
+        fallback(style);
     }
+}
+
+export function getMicroFrontParams(): MicroFrontParams | undefined {
+    return getModuleZoneData().params;
 }
 
 function createModuleZone(name: string): Zone {

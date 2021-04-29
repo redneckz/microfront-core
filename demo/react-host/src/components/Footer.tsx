@@ -48,4 +48,4 @@ export const Footer: React.FC<FooterProps> = ({ title, description }) => {
             </Container>
         </footer>
     );
-}
+};
