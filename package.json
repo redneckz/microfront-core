@@ -17,6 +17,8 @@
     "build": "yarn workspaces foreach -pvt run build",
     "build:dev": "yarn workspaces foreach -pvt run build:dev",
     "test": "jest --coverage",
+    "build:demo": "yarn workspace @demo/react-host build",
+    "start:demo": "yarn workspace @demo/react-host start",
     "postinstall": "husky install"
   },
   "workspaces": [

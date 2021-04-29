@@ -85,33 +85,6 @@ export const Header: React.FC = () => {
 };
 ```
 
-## How to isolate global API relative to micro frontend instance
-
-```tsx
-import React, { useCallback } from 'react';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import { useContainer } from '@redneckz/microfront-core-react';
-
-export const Header: React.FC = () => {
-    // Outside of micro frontend context returns identity function
-    const container = useContainer();
-
-    const onSignUp = useCallback(
-        container(() => {
-            // isolation is here
-        }),
-        []
-    );
-
-    return (
-        <Toolbar>
-            <Button onClick={onSignUp}>Sign up</Button>
-        </Toolbar>
-    );
-};
-```
-
 ## How to retrieve micro frontend params
 
 ```tsx

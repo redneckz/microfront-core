@@ -10,6 +10,11 @@ import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
 
 import { Layout } from './Layout';
 
+const bootstrapHeader = register(
+    'reactHost', // remote module name according to Module Federation config
+    () => import('reactHost/Header') //  remote module
+);
+
 const bootstrapAds = register(
     'reactHost', // remote module name according to Module Federation config
     () => import('reactHost/FeaturedPostsList') //  remote module
@@ -24,6 +29,11 @@ export const App: React.FC = () => {
     return (
         <Router>
             <Layout
+                header={
+                    <MicroFrontInShadow route="/" bootstrap={bootstrapHeader}>
+                        {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
+                    </MicroFrontInShadow>
+                }
                 ads={
                     <MicroFrontInShadow route="/" bootstrap={bootstrapAds}>
                         {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
