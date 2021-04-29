@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { container } from '@redneckz/microfront-core';
+import { MicroFrontParams, container, getMicroFrontParams } from '@redneckz/microfront-core';
 
 type Container = ReturnType<typeof container>;
 
@@ -10,3 +10,13 @@ export const Container: React.FC<{ instance: Container }> = ({ instance, childre
 };
 
 export const useContainer = () => useContext(IsolationContext);
+
+export const useMicroFrontParams = (): MicroFrontParams | undefined => {
+    const container = useContainer();
+    try {
+        return container(getMicroFrontParams)();
+    } catch (err) {
+        // Called outside of micro frontend context
+        return undefined;
+    }
+};

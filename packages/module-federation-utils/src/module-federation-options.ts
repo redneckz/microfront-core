@@ -32,6 +32,11 @@ export function moduleFederationOptions(options: {
                     singleton: true,
                     requiredVersion: '^0.11.0'
                 },
+                '@redneckz/microfront-core': {
+                    eager: true,
+                    singleton: true,
+                    requiredVersion: '^0.1.0'
+                },
                 ...shared
             }
         },

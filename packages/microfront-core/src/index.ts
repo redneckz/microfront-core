@@ -8,4 +8,4 @@ export type {
 
 export { register } from './microfront-api';
 
-export { container, wrap, insertStyle } from './microfront-isolation-api';
+export { container, wrap, insertStyle, getMicroFrontParams } from './microfront-isolation-api';

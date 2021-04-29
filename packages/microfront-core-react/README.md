@@ -21,7 +21,112 @@ $ yarn add @redneckz/microfront-core-react
 
 # Usage
 
-TODO
+## How to define micro frontend module
+
+```tsx
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { Router } from 'react-router-dom';
+
+import { container, MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
+import { Container } from '@redneckz/microfront-core-react';
+
+// Each and every micro frontend should implement async "bootstrap" function
+export const bootstrap: MicroFrontModuleBootstrap = async ({ route: rootRoute }) => {
+    // Global stuff can be lazily loaded here
+    const { App } = await import('./App');
+    const { createBrowserHistory } = await import('history');
+
+    // Relative to MF root route
+    const history = createBrowserHistory({ basename: rootRoute });
+
+    return {
+        mount: async mountingRoot => {
+            render(
+                <Container instance={container()}>
+                    <Router history={history}>
+                        <App />
+                    </Router>
+                </Container>,
+                mountingRoot
+            );
+        },
+        unmount: async mountingRoot => {
+            unmountComponentAtNode(mountingRoot);
+        }
+    };
+};
+```
+
+## How to isolate global API relative to micro frontend instance
+
+```tsx
+import React, { useCallback } from 'react';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import { useContainer } from '@redneckz/microfront-core-react';
+
+export const Header: React.FC = () => {
+    // Outside of micro frontend context returns identity function
+    const container = useContainer();
+
+    const onSignUp = useCallback(
+        container(() => {
+            // isolation is here
+        }),
+        []
+    );
+
+    return (
+        <Toolbar>
+            <Button onClick={onSignUp}>Sign up</Button>
+        </Toolbar>
+    );
+};
+```
+
+## How to isolate global API relative to micro frontend instance
+
+```tsx
+import React, { useCallback } from 'react';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import { useContainer } from '@redneckz/microfront-core-react';
+
+export const Header: React.FC = () => {
+    // Outside of micro frontend context returns identity function
+    const container = useContainer();
+
+    const onSignUp = useCallback(
+        container(() => {
+            // isolation is here
+        }),
+        []
+    );
+
+    return (
+        <Toolbar>
+            <Button onClick={onSignUp}>Sign up</Button>
+        </Toolbar>
+    );
+};
+```
+
+## How to retrieve micro frontend params
+
+```tsx
+import React from 'react';
+import { useMicroFrontParams } from '@redneckz/microfront-core-react';
+
+export const Page: React.FC = () => {
+    const params = useMicroFrontParams();
+    return params ? (
+        <article>This page is rendered as a micro frontend on the route `{params.route}`</article>
+    ) : (
+        <article>This page is rendered as a regular page</article>
+    );
+};
+```
 
 # License
 

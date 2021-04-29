@@ -74,7 +74,7 @@ describe('isolateModule', () => {
             expect(prepend).toBeCalledWith(linkTag);
         });
 
-        it('should reinitialize all previously inserted styles by means of "bindStyles" function', () => {
+        it('should reinitialize all previously inserted styles by means of "bindStyles" function (preserving order)', () => {
             const prepend = jest.fn();
             const root = { prepend } as any;
             const linkTag1 = { textContent: 'linkTag1' } as Node;
@@ -91,7 +91,7 @@ describe('isolateModule', () => {
             expect(prepend).toBeCalledWith(linkTag1, linkTag2);
         });
 
-        it('should reinitialize all previously inserted styles by means of "bindStyles" function', () => {
+        it('should remove all previously inserted styles by means of "unbindStyles" function', () => {
             expect.assertions(2);
 
             const removeChild = jest.fn();
