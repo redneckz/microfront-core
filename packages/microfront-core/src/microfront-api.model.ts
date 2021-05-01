@@ -7,8 +7,6 @@ export enum MicroFrontIsolation {
 export interface MicroFrontParams {
     readonly route?: string; // MF root route
     readonly root?: ParentNode & Node; // layout slot dedicated for this particular MF module
-
-    // TODO v1 messaging
 }
 
 export interface MicroFrontBootstrappedModule {
@@ -16,9 +14,11 @@ export interface MicroFrontBootstrappedModule {
     unmount(mountingRoot: Element): Promise<void>;
 }
 
-export type MicroFrontModuleBootstrap = (params: MicroFrontParams) => Promise<MicroFrontBootstrappedModule>;
+export type MicroFrontModuleBootstrap<MiscParams extends Record<string, any> = {}> = (
+    params: MicroFrontParams & MiscParams
+) => Promise<MicroFrontBootstrappedModule>;
 
 // This interface should be implemented by remote modules
-export interface MicroFrontModule {
-    bootstrap: MicroFrontModuleBootstrap;
+export interface MicroFrontModule<MiscParams extends Record<string, any> = {}> {
+    bootstrap: MicroFrontModuleBootstrap<MiscParams>;
 }

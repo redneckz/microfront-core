@@ -1,0 +1,4 @@
+releases:
+  "@redneckz/microfront-core": patch
+  "@redneckz/microfront-core-react": patch
+  "@redneckz/module-federation-utils": patch

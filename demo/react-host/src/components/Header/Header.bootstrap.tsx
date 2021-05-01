@@ -7,7 +7,9 @@ import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import { container, MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
 import { Container } from '@redneckz/microfront-core-react';
 
-export const bootstrap: MicroFrontModuleBootstrap = async () => {
+import type { HeaderProps } from './Header';
+
+export const bootstrap: MicroFrontModuleBootstrap<HeaderProps> = async ({ title }) => {
     const { Header } = await import('./Header');
 
     return {
@@ -20,7 +22,7 @@ export const bootstrap: MicroFrontModuleBootstrap = async () => {
             render(
                 <Container instance={container()}>
                     <StylesProvider jss={jss}>
-                        <Header title="Micro Frontend Host Container" />
+                        <Header title={title} />
                     </StylesProvider>
                 </Container>,
                 mountingRoot

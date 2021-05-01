@@ -20,11 +20,11 @@ import { isolateModule, bindStyles, unbindStyles, wrap } from './microfront-isol
  * @param options - optional
  * @returns wrapped MF`s bootstrap
  */
-export function register(
+export function register<MiscParams extends Record<string, any> = {}>(
     name: string,
     module: () => Promise<MicroFrontModule>,
     options: { isolation?: MicroFrontIsolation } = {}
-): MicroFrontModuleBootstrap {
+): MicroFrontModuleBootstrap<MiscParams> {
     const { isolation } = options;
     if (isolation === MicroFrontIsolation.SANDBOX) {
         throw new Error('MicroFrontIsolation.SANDBOX isolation level is not supported yet...');
