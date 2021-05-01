@@ -101,6 +101,65 @@ export const Page: React.FC = () => {
 };
 ```
 
+## How to pass additional params to micro frontend on bootstrap
+
+Parametrize `bootstrap: MicroFrontModuleBootstrap<?>` with additional props type.
+Export such types as a library to simplify integration with host container.
+
+```tsx
+import type { HeaderProps } from './Header';
+
+export const bootstrap: MicroFrontModuleBootstrap<HeaderProps> = async ({ title }) => {
+    const { Header } = await import('./Header');
+    return {
+        mount: async mountingRoot => {
+            ...
+        },
+        unmount: async mountingRoot => {
+            ...
+        }
+    };
+}
+```
+
+Integrate micro frontend with host container and pass in additional params:
+
+```tsx
+import React from 'react';
+
+import { register } from '@redneckz/microfront-core';
+import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
+
+import { Layout } from './Layout';
+
+/**
+ * It would be nice to have the latest typings of micro frontends
+ * on host container to fix integration problems ASAP at compile time.
+ * But keep in mind that host <-> microfront contract should be as simple as possible.
+ */
+import type { HeaderProps } from '@typings-scope/typings-library/Header';
+
+const bootstrapHeader = register<HeaderProps>(
+    'foo', // remote module name according to Module Federation config
+    () => import('foo/Header') //  remote module
+);
+
+...
+
+export const App: React.FC = () => (
+    <Layout
+        header={
+            /* Typings are correctly seeped from "bootstrapHeader" to "MicroFrontInShadow" */
+            <MicroFrontInShadow bootstrap={bootstrapHeader} title="Micro Frontends">
+                {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
+            </MicroFrontInShadow>
+        }
+    >
+        ...
+    </Layout>
+);
+```
+
 # License
 
 [MIT](http://vjpr.mit-license.org)

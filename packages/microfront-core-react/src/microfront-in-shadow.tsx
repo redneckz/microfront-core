@@ -6,10 +6,10 @@ import { useShadow } from './use-shadow';
 import { useBootstrap } from './use-bootstrap';
 import { useMount } from './use-mount';
 
-export interface MicroFrontInShadowProps {
+export interface MicroFrontInShadowProps<MiscParams extends Record<string, any>> {
     route?: string;
 
-    bootstrap: MicroFrontModuleBootstrap;
+    bootstrap: MicroFrontModuleBootstrap<MiscParams>;
 
     renderError?: (error: Error) => React.ReactNode;
     children: (mountingRootRef: React.RefCallback<any>) => React.ReactNode;
@@ -25,18 +25,19 @@ export interface MicroFrontInShadowProps {
  * @param children - kind of loading and success handler
  * @returns
  */
-export function MicroFrontInShadow({
+export function MicroFrontInShadow<MiscParams extends Record<string, any>>({
     route,
     bootstrap,
     renderError = defaultErrorRenderer,
-    children
-}: MicroFrontInShadowProps) {
+    children,
+    ...misc
+}: MicroFrontInShadowProps<MiscParams> & MiscParams) {
     const [shadowRoot, rootRef] = useShadow<HTMLDivElement>();
 
     const bootstrapModule = useCallback(async () => {
         if (!shadowRoot) return;
 
-        return bootstrap({ route, root: shadowRoot });
+        return bootstrap({ route, root: shadowRoot, ...(misc as MicroFrontInShadowProps<MiscParams> & MiscParams) });
     }, [bootstrap, route, shadowRoot]);
 
     const [bootstrappedModule, error] = useBootstrap(bootstrapModule);
