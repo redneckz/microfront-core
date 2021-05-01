@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-interface HeaderProps {
+export interface HeaderProps {
     title: string;
 }
 

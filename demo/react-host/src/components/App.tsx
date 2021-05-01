@@ -10,7 +10,14 @@ import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
 
 import { Layout } from './Layout';
 
-const bootstrapHeader = register(
+/**
+ * It would be nice to have the latest typings of micro frontends
+ * on host container to fix integration problems ASAP at compile time.
+ * But keep in mind that host <-> microfront contract should be as simple as possible.
+ */
+import type { HeaderProps } from './Header';
+
+const bootstrapHeader = register<HeaderProps>(
     'reactHost', // remote module name according to Module Federation config
     () => import('reactHost/Header') //  remote module
 );
@@ -25,32 +32,31 @@ const bootstrapHome = register(
     () => import('reactHost/Home') //  remote module
 );
 
-export const App: React.FC = () => {
-    return (
-        <Router>
-            <Layout
-                header={
-                    <MicroFrontInShadow route="/" bootstrap={bootstrapHeader}>
+export const App: React.FC = () => (
+    <Router>
+        <Layout
+            header={
+                /* Typings are correctly seeped from "bootstrapHeader" to "MicroFrontInShadow" */
+                <MicroFrontInShadow bootstrap={bootstrapHeader} title="Micro Frontend Host Container">
+                    {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
+                </MicroFrontInShadow>
+            }
+            ads={
+                <MicroFrontInShadow bootstrap={bootstrapAds}>
+                    {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
+                </MicroFrontInShadow>
+            }
+        >
+            <Switch>
+                <Route path="/science">TODO Micro Frontend #1</Route>
+                <Route path="/health">TODO Micro Frontend #2</Route>
+                <Route path="/travel">TODO Micro Frontend #3</Route>
+                <Route path="/">
+                    <MicroFrontInShadow bootstrap={bootstrapHome}>
                         {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
                     </MicroFrontInShadow>
-                }
-                ads={
-                    <MicroFrontInShadow route="/" bootstrap={bootstrapAds}>
-                        {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-                    </MicroFrontInShadow>
-                }
-            >
-                <Switch>
-                    <Route path="/science">TODO Micro Frontend #1</Route>
-                    <Route path="/health">TODO Micro Frontend #2</Route>
-                    <Route path="/travel">TODO Micro Frontend #3</Route>
-                    <Route path="/">
-                        <MicroFrontInShadow route="/" bootstrap={bootstrapHome}>
-                            {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-                        </MicroFrontInShadow>
-                    </Route>
-                </Switch>
-            </Layout>
-        </Router>
-    );
-};
+                </Route>
+            </Switch>
+        </Layout>
+    </Router>
+);
