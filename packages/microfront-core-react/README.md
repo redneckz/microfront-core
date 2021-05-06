@@ -10,13 +10,13 @@ Microfrontend Core Library for React
 # Installation
 
 ```bash
-$ npm install --save @redneckz/microfront-core-react
+$ npm install --save @redneckz/microfront-core @redneckz/microfront-core-react
 ```
 
 or:
 
 ```bash
-$ yarn add @redneckz/microfront-core-react
+$ yarn add @redneckz/microfront-core @redneckz/microfront-core-react
 ```
 
 # Usage
