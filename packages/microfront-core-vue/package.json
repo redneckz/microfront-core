@@ -1,0 +1,35 @@
+{
+  "name": "@redneckz/microfront-core-vue",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Microfrontend lightweight core library for Vue 3",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rimraf dist lib out-tsc",
+    "build": "yarn clean && yarn build:tsc --incremental false",
+    "build:tsc": "tsc --outDir lib"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "dependencies": {
+    "@redneckz/microfront-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "14.14.37",
+    "rimraf": "3.0.2",
+    "tslib": "2.2.0",
+    "typescript": "4.2.3",
+    "vue": "3.0.11"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
