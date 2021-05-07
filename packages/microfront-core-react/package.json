@@ -19,6 +19,7 @@
     "lib",
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
     "clean": "rimraf dist lib out-tsc",
     "build": "yarn clean && yarn build:tsc --incremental false && webpack --mode=production",
@@ -48,7 +49,7 @@
     "ts-loader": "8.1.0",
     "tslib": "2.2.0",
     "typescript": "4.2.3",
-    "webpack": "5.31.0",
+    "webpack": "5.35.0",
     "webpack-cli": "4.6.0"
   }
 }
