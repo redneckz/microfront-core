@@ -4,7 +4,6 @@
 
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
@@ -27,25 +26,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-interface FooterProps {
-    title: string;
-    description: string;
-}
-
-export const Footer: React.FC<FooterProps> = ({ title, description }) => {
+export const Footer: React.FC = () => {
     const classes = useStyles();
 
     return (
         <footer className={classes.footer}>
-            <Container maxWidth="lg">
-                <Typography variant="h6" align="center" gutterBottom>
-                    {title}
-                </Typography>
-                <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                    {description}
-                </Typography>
-                <Copyright />
-            </Container>
+            <Copyright />
         </footer>
     );
 };

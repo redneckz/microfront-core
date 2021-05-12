@@ -69,7 +69,7 @@ export const Layout: React.FC<LayoutProps> = ({ header, ads, children }) => {
                     </Grid>
                 </main>
             </Container>
-            <Footer title="Footer" description="Something here to give the footer a purpose!" />
+            <Footer />
         </>
     );
 };

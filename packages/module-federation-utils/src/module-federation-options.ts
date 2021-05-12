@@ -26,6 +26,10 @@ export function moduleFederationOptions(options: {
     return Object.assign(
         {
             name,
+            library: { type: 'var', name },
+            // remote entry filename is standardized
+            filename: DEFAULT_ENTRY_FILENAME,
+            exposes,
             shared: {
                 'zone.js': {
                     eager: true,
@@ -42,12 +46,6 @@ export function moduleFederationOptions(options: {
         },
         remotes && {
             remotes: Object.assign({}, ...remotes.map(remoteURL))
-        },
-        exposes && {
-            library: { type: 'var', name },
-            // remote entry filename is standardized
-            filename: DEFAULT_ENTRY_FILENAME,
-            exposes
         }
     );
 }
