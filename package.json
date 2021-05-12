@@ -19,6 +19,8 @@
     "test": "jest --coverage",
     "build:demo": "yarn workspace @demo/react-host build",
     "start:demo": "yarn workspace @demo/react-host start",
+    "build:demo:vue": "yarn workspace @demo/vue-host build",
+    "start:demo:vue": "yarn workspace @demo/vue-host start",
     "postinstall": "husky install"
   },
   "workspaces": [
