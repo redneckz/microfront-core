@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { Ref, h, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { register } from '@redneckz/microfront-core';
 import { MicroFrontInShadow } from '@redneckz/microfront-core-vue';
 
@@ -43,13 +43,7 @@ export default defineComponent({
     },
     methods: {
         bootstrapHeader,
-        renderHeaderRoot(mountingRootRef: Ref<any>) {
-            return h('div', { ref: mountingRootRef }, ['Loading...']);
-        },
-        bootstrapAds,
-        renderAdsRoot(mountingRootRef: Ref<any>) {
-            return h('div', { ref: mountingRootRef }, ['Loading...']);
-        }
+        bootstrapAds
     }
 });
 </script>
