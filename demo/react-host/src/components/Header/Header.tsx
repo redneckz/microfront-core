@@ -1,7 +1,3 @@
-/**
- * https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/blog
- */
-
 import React, { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -32,6 +28,15 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
     const onSignUp = useCallback(() => {
         const newToken = container(signUp)();
         setCurrentToken(newToken);
+        // GTM event
+        reactHostDL.push({ event: 'login', eventValue: newToken.replace(/^.{32}/, '********') });
+    }, []);
+
+    const onSignOut = useCallback(() => {
+        container(signOut)();
+        setCurrentToken(null);
+        // GTM event
+        reactHostDL.push({ event: 'logout', eventValue: '' });
     }, []);
 
     return (
@@ -47,15 +52,19 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
             >
                 {title}
             </Typography>
-            {currentToken ? (
-                <img
-                    src={`https://www.tinygraphs.com/spaceinvaders/${currentToken}?theme=frogideas&numcolors=4&size=36&fmt=svg`}
-                />
-            ) : (
-                <Button onClick={onSignUp} variant="outlined" size="small">
-                    Sign up
-                </Button>
-            )}
+            <Button onClick={currentToken ? onSignOut : onSignUp} variant="outlined" size="small">
+                {currentToken ? (
+                    <img
+                        src={`https://www.tinygraphs.com/spaceinvaders/${currentToken}?theme=frogideas&numcolors=4&size=24&fmt=svg`}
+                        alt="SIGN OUT"
+                        title="SIGN OUT"
+                        width="24"
+                        height="24"
+                    />
+                ) : (
+                    'SIGN UP'
+                )}
+            </Button>
         </Toolbar>
     );
 };
@@ -74,4 +83,8 @@ function signUp(): string {
         return token([...rnd].map(_ => _.toString(16)).join('')) as string;
     }
     return token() as string;
+}
+
+function signOut(): void {
+    localStorage.removeItem('token');
 }
