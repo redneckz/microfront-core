@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { moduleFederationOptions } = require('@redneckz/module-federation-utils');
-const { insertStyle } = require('@redneckz/microfront-core');
 
 module.exports = {
     entry: './src/index.ts',
@@ -21,7 +20,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: [{ loader: 'style-loader', options: { insert: insertStyle } }, 'css-loader']
+                use: ['style-loader', 'css-loader']
             }
         ]
     },

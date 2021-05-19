@@ -1,4 +1,5 @@
 import { MicroFrontParams } from './microfront-api.model';
+import { ModuleZoneData } from './microfront-isolation-api.model';
 import { once } from './once';
 
 /**
@@ -9,12 +10,8 @@ const configureIsolationContainer = once(() => {
         const moduleZone = getModuleZone();
         return moduleZone ? moduleZone.name : undefined;
     });
+    require('./microfront-isolation-api.style').default();
 });
-
-interface ModuleZoneData {
-    params?: MicroFrontParams;
-    styles?: Node[];
-}
 
 /**
  * Isolation API provider
@@ -55,29 +52,6 @@ export function unbindStyles(): void {
     if (!root) throw new Error('Trying to unbind styles outside of micro frontend context');
 
     styles.forEach(_ => root.removeChild(_));
-}
-
-/**
- * This function should be self-sufficient (other functions can not be used here),
- * cause it supposed to be used inside Webpack config
- * */
-export function insertStyle(
-    style: Node,
-    fallback: (style: Node) => any = style => {
-        document.head.appendChild(style);
-    }
-) {
-    try {
-        // Inlined
-        const data: ModuleZoneData = Zone.current.getZoneWith('microfront')?.get('data');
-        const { params: { root } = {} } = data;
-        root!.prepend(style);
-        if (!data.styles) data.styles = [];
-        data.styles.push(style);
-    } catch (err) {
-        console.warn(err);
-        fallback(style);
-    }
 }
 
 export function getMicroFrontParams(): MicroFrontParams | undefined {

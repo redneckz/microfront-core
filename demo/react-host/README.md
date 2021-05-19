@@ -26,16 +26,7 @@ Please take a look at the following major parts:
 ## Styles isolation
 
 -   `src/components/Home/Home.css` - micro frontend style
--   `webpack.config.js`:
-
-```js
-{
-    test: /\.css$/i,
-    use: [{ loader: 'style-loader', options: { insert: insertStyle } }, 'css-loader']
-}
-```
-
-At runtime inspect `Home` section for styles under the shadow root.
+-   At runtime, inspect `Home` section for the very first style isolated by shadow root.
 
 ## Google Tag Manager
 
