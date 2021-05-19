@@ -113,8 +113,9 @@ module.exports = {
     ...
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      // Custom insert is required in order to isolate micro frontends from each other
+      // Custom insert can be declared in order to isolate micro frontends from each other
       // In context of host container styles should be inserted into mounting root
+      // ! But this is not required anymore if your target browsers support MutationObserver API (all modern and IE11+)
       insert: insertStyle
     }),
     ...
