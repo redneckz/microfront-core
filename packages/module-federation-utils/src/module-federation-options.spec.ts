@@ -23,7 +23,7 @@ describe('moduleFederationOptions', () => {
         });
     });
 
-    it('should generate ModuleFederationPlugin "library" and "filename" options if something exposed by module', () => {
+    it('should generate ModuleFederationPlugin "filename" options if something exposed by module', () => {
         expect(
             moduleFederationOptions({
                 name: 'foo',
@@ -33,8 +33,6 @@ describe('moduleFederationOptions', () => {
             })
         ).toMatchObject({
             name: 'foo',
-            // Module should be exposed as a var to support a wide variety of runtime contexts
-            library: { type: 'var', name: 'foo' },
             filename: 'remoteEntry.js',
             exposes: {
                 './module': './src/app/foo.module.ts'

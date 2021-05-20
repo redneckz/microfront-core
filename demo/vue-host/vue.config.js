@@ -8,8 +8,8 @@ module.exports = {
     },
     configureWebpack: {
         plugins: [
-            new webpack.container.ModuleFederationPlugin({
-                ...moduleFederationOptions({
+            new webpack.container.ModuleFederationPlugin(
+                moduleFederationOptions({
                     name: 'vueHost',
                     shared: {
                         vue: {
@@ -17,11 +17,10 @@ module.exports = {
                             singleton: true,
                             requiredVersion: '^3.0.0'
                         }
-                    }
-                }),
-                // Still not clear what is the reason of fails with default config of remotes
-                remotes: ['reactHost']
-            })
+                    },
+                    remotes: [['reactHost', 'http://localhost:8080']]
+                })
+            )
         ]
     }
 };

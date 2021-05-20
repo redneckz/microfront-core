@@ -15,12 +15,12 @@ export function insertStyle(
         fallback = style => {
             document.head.appendChild(style);
         },
-        zone = Zone.current.getZoneWith('microfront')
+        zone
     }: InsertStyleOptions = {}
 ) {
     try {
         // Inlined cause of webpack config nature
-        const data: ModuleZoneData = zone?.get('data');
+        const data: ModuleZoneData = (zone || Zone.current.getZoneWith('microfront'))?.get('data');
         const { params: { root } = {} } = data;
         root!.prepend(style);
         if (!data.styles) data.styles = [];
