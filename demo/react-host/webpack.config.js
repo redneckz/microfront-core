@@ -36,8 +36,8 @@ module.exports = {
             title: 'Micro Frontend Host Container',
             excludeChunks: ['reactHost']
         }),
-        new webpack.container.ModuleFederationPlugin({
-            ...moduleFederationOptions({
+        new webpack.container.ModuleFederationPlugin(
+            moduleFederationOptions({
                 name: 'reactHost',
                 exposes: {
                     './Header': './src/components/Header/Header.bootstrap.tsx',
@@ -60,9 +60,9 @@ module.exports = {
                         singleton: true,
                         requiredVersion: '^5.0.0'
                     }
-                }
-            }),
-            remotes: ['reactHost']
-        })
+                },
+                remotes: [['reactHost', 'http://localhost:8080']]
+            })
+        )
     ]
 };

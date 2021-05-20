@@ -1,0 +1,6 @@
+releases:
+  "@demo/vue-host": patch
+  "@redneckz/microfront-core": patch
+  "@redneckz/microfront-core-react": patch
+  "@redneckz/microfront-core-vue": patch
+  "@redneckz/module-federation-utils": patch

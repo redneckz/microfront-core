@@ -26,7 +26,6 @@ export function moduleFederationOptions(options: {
     return Object.assign(
         {
             name,
-            library: { type: 'var', name },
             // remote entry filename is standardized
             filename: DEFAULT_ENTRY_FILENAME,
             exposes,
