@@ -3,9 +3,9 @@ import { ModuleZoneData } from './microfront-isolation-api.model';
 import { once } from './once';
 
 /**
- * Configure container to isolate global API
+ * Configure container to isolate global API (isolation plugins setup)
  */
-const configureIsolationContainer = once(() => {
+export const configureIsolationContainer = once(() => {
     require('./microfront-isolation-api.storage').default(() => {
         const moduleZone = getModuleZone();
         return moduleZone ? moduleZone.name : undefined;

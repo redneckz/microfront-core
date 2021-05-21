@@ -95,6 +95,28 @@ module.exports = {
 };
 ```
 
+Also, please, move the `root` module into the separate `bootstrap` module to load it asynchronously.
+For example:
+
+`bootstrap.tsx`:
+
+```tsx
+// This line is required to configure core library isolation container
+import '@redneckz/microfront-core/lib/configure';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { App } from './components/App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+`index.ts`:
+
+```ts
+import('./bootstrap');
+```
+
 ### Micro Frontend Container Configuration
 
 ```js
@@ -132,6 +154,8 @@ module.exports = {
   ],
 };
 ```
+
+Also, please, move the `root` module into the separate `bootstrap` module to load it asynchronously. See "Host Container Configuration"
 
 ## Step #4 [React] Host Container
 
