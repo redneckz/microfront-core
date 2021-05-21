@@ -1,4 +1,4 @@
-import 'zone.js';
+import '@redneckz/microfront-core/lib/configure';
 
 import { createApp } from 'vue';
 import App from './App.vue';
