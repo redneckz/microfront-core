@@ -1,6 +1,6 @@
 import { proxy } from './proxy';
 
-const isProxied = Symbol();
+const isProxied = '__microfront__is_proxied__';
 
 /**
  * Isolation API plugin to isolate Storage API relative to specific micro frontend
