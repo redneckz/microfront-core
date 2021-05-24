@@ -24,7 +24,6 @@ export function isolateModule(name: string) {
     const moduleZone = createModuleZone(name);
     return (callback: (params: MicroFrontParams) => any): typeof callback =>
         moduleZone.wrap(params => {
-            configureIsolationContainer();
             const data = getModuleZoneData();
             data.params = params;
             return callback(params);

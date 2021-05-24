@@ -2,7 +2,7 @@ import { proxy } from './proxy';
 import { insertStyle } from './insert-style';
 import { isStyleNode } from './is-style-node';
 
-const isProxied = Symbol();
+const isProxied = '__microfront__is_proxied__';
 
 /**
  * Isolation API plugin to isolate styles inserted by micro frontend.
@@ -34,7 +34,8 @@ function trackZonesOfCreatedStyles(): Map<Node, Zone> {
     proxy(globalThis.document, {
         createElement: (createElement, ...args) => {
             const node = createElement(...args);
-            if (isStyleNode(node)) {
+            // Pre-filter produced nodes to reduce memory usage
+            if (isStyleNode(node, { relaxed: true })) {
                 style2Zone.set(node, Zone.current);
             }
             return node;
@@ -48,7 +49,7 @@ function trackZonesOfCreatedStyles(): Map<Node, Zone> {
 function moveAddedStylesToCorrespondingMFs(style2Zone: Map<Node, Zone>): MutationCallback {
     return mutationsList => {
         const nodes = mutationsList.map(({ addedNodes }) => addedNodes).flatMap(nodeList2array);
-        const styleNodes = nodes.filter(_ => style2Zone.has(_));
+        const styleNodes = nodes.filter(_ => isStyleNode(_)).filter(_ => style2Zone.has(_));
         styleNodes.forEach(_ =>
             insertStyle(_, {
                 fallback: () => {}, // no fallback

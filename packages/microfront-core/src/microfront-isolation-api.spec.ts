@@ -1,6 +1,12 @@
-import 'zone.js';
+import './configure';
 
-import { isolateModule, bindStyles, unbindStyles, container } from './microfront-isolation-api';
+import {
+    configureIsolationContainer,
+    isolateModule,
+    bindStyles,
+    unbindStyles,
+    container
+} from './microfront-isolation-api';
 import { insertStyle } from './insert-style';
 
 jest.mock('./once', () => ({
@@ -53,6 +59,8 @@ describe('isolateModule', () => {
                     storage[key] = val;
                 }
             } as Storage;
+            // Re-init isolation container
+            configureIsolationContainer();
 
             // First micro frontend
             const bootstrapFoo = isolateModule('foo')(() => {
@@ -140,6 +148,8 @@ describe('isolateModule', () => {
                     }
                     observe() {}
                 };
+                // Re-init isolation container
+                configureIsolationContainer();
                 // MF root node mock
                 const prepend = jest.fn();
                 const root = { prepend } as any;
