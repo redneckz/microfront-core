@@ -2,8 +2,6 @@ import { proxy } from './proxy';
 import { insertStyle } from './insert-style';
 import { isStyleNode } from './is-style-node';
 
-const isProxied = '__microfront__is_proxied__';
-
 /**
  * Isolation API plugin to isolate styles inserted by micro frontend.
  * Styles created by MF should be moved from head to shadow root of the corresponding MF
@@ -15,8 +13,6 @@ export default (targetNode?: Node) => {
         console.warn('MutationObserver is not supported. Manual setup is needed for styles isolation.');
         return;
     }
-
-    if ((globalThis.document as any)[isProxied]) return;
 
     const style2Zone = trackZonesOfCreatedStyles();
 
@@ -41,7 +37,6 @@ function trackZonesOfCreatedStyles(): Map<Node, Zone> {
             return node;
         }
     });
-    (globalThis.document as any)[isProxied] = true;
 
     return style2Zone;
 }
