@@ -1,5 +1,3 @@
-import 'zone.js';
-
 import { register } from './microfront-api';
 import { MicroFrontParams, MicroFrontModule } from './microfront-api.model';
 import { bindStyles } from './microfront-isolation-api';
@@ -9,6 +7,10 @@ jest.mock('./microfront-isolation-api', () => ({
     bindStyles: jest.fn(() => {}),
     unbindStyles: jest.fn(() => {}),
     wrap: jest.fn(fn => fn)
+}));
+
+jest.mock('./microfront-api.events', () => ({
+    fireMicroFrontEvent: () => {}
 }));
 
 describe('register', () => {

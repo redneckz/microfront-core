@@ -1,3 +1,4 @@
+import { fireMicroFrontEvent } from './microfront-api.events';
 import {
     MicroFrontBootstrappedModule,
     MicroFrontIsolation,
@@ -32,15 +33,19 @@ export function register<MiscParams extends Record<string, any> = {}>(
     return isolateModule(name)(
         async (params): Promise<MicroFrontBootstrappedModule> => {
             const { bootstrap } = await module();
+            fireMicroFrontEvent('fetched', { name });
             const { mount, unmount } = await bootstrap(params);
+            fireMicroFrontEvent('bootstrapped', { name });
             return {
                 mount: wrap(async mountingRoot => {
                     bindStyles();
                     await mount(mountingRoot);
+                    fireMicroFrontEvent('mounted', { name, mountingRoot });
                 }, 'mount'),
                 unmount: wrap(async mountingRoot => {
                     await unmount(mountingRoot);
                     unbindStyles();
+                    fireMicroFrontEvent('unmounted', { name, mountingRoot });
                 }, 'mount')
             };
         }
