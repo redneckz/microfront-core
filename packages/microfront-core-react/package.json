@@ -1,6 +1,6 @@
 {
   "name": "@redneckz/microfront-core-react",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Microfrontend lightweight core library for React",
   "keywords": [
     "microfrontend",
