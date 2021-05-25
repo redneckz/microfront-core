@@ -1,6 +1,7 @@
 import { proxy } from './proxy';
 import { insertStyle } from './insert-style';
 import { isStyleNode } from './is-style-node';
+import { fireMicroFrontEvent } from './microfront-api.events';
 
 /**
  * Isolation API plugin to isolate styles inserted by micro frontend.
@@ -33,6 +34,7 @@ function trackZonesOfCreatedStyles(): Map<Node, Zone> {
             // Pre-filter produced nodes to reduce memory usage
             if (isStyleNode(node, { relaxed: true })) {
                 style2Zone.set(node, Zone.current);
+                fireMicroFrontEvent('style_fetched', { style: node });
             }
             return node;
         }
@@ -45,12 +47,14 @@ function moveAddedStylesToCorrespondingMFs(style2Zone: Map<Node, Zone>): Mutatio
     return mutationsList => {
         const nodes = mutationsList.map(({ addedNodes }) => addedNodes).flatMap(nodeList2array);
         const styleNodes = nodes.filter(_ => isStyleNode(_)).filter(_ => style2Zone.has(_));
-        styleNodes.forEach(_ =>
+        styleNodes.forEach(_ => {
+            const zone = style2Zone.get(_)!;
             insertStyle(_, {
                 fallback: () => {}, // no fallback
-                zone: style2Zone.get(_)
-            })
-        );
+                zone
+            });
+            zone.run(() => fireMicroFrontEvent('style_mounted', { style: _ }));
+        });
     };
 }
 

@@ -57,16 +57,16 @@ export function getMicroFrontParams(): MicroFrontParams | undefined {
     return getModuleZoneData().params;
 }
 
+export function getModuleZoneData(): ModuleZoneData {
+    return assertModuleZone().get('data');
+}
+
 function createModuleZone(name: string): Zone {
     return Zone.current.fork({ name, properties: { microfront: true, data: {} as ModuleZoneData } });
 }
 
 function getModuleZone(): Zone | null {
     return Zone.current.getZoneWith('microfront');
-}
-
-function getModuleZoneData(): ModuleZoneData {
-    return assertModuleZone().get('data');
 }
 
 function assertModuleZone(): Zone {

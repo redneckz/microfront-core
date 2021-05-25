@@ -21,7 +21,20 @@ $ yarn add @redneckz/microfront-core
 
 # Usage
 
-TODO
+## Micro Frontend Listeners
+
+You can register state listener at any point bound to micro frontend `zone` in your code:
+
+```ts
+import { addMicroFrontListener } from '@redneckz/microfront-core';
+
+addMicroFrontListener('fetched', ({ name }) => { ... });
+addMicroFrontListener('bootstrapped', ({ name }) => { ... });
+addMicroFrontListener('mounted', ({ name }) => { ... });
+addMicroFrontListener('unmounted', ({ name }) => { ... });
+addMicroFrontListener('style_fetched', ({ style }) => { ... });
+addMicroFrontListener('style_mounted', ({ style }) => { ... });
+```
 
 # License
 
