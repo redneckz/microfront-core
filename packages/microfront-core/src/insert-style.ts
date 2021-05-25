@@ -21,6 +21,8 @@ export function insertStyle(
     try {
         // Inlined cause of webpack config nature
         const data: ModuleZoneData = (zone || Zone.current.getZoneWith('microfront'))?.get('data');
+        if (!data) return;
+
         const { params: { root } = {} } = data;
         root!.prepend(style);
         if (!data.styles) data.styles = [];
