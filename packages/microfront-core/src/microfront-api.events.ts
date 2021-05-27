@@ -1,11 +1,10 @@
-import { getModuleZoneData } from './microfront-isolation-api';
+import { getModuleZoneData } from './microfront-isolation-api.model';
 
 interface MicroFrontEventMap {
     fetched: { name: string };
     bootstrapped: { name: string };
     mounted: { name: string; mountingRoot: Element };
     unmounted: { name: string; mountingRoot: Element };
-    style_fetched: { style: Node };
     style_mounted: { style: Node };
 }
 
@@ -49,7 +48,6 @@ function provideListeners<E extends MicroFrontEvent>(type: E): Function[] {
                 bootstrapped: [],
                 mounted: [],
                 unmounted: [],
-                style_fetched: [],
                 style_mounted: []
             };
         }

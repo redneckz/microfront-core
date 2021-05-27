@@ -1,16 +1,14 @@
-import './configure';
-
-import {
-    configureIsolationContainer,
-    isolateModule,
-    bindStyles,
-    unbindStyles,
-    container
-} from './microfront-isolation-api';
+import 'zone.js';
+import { configureIsolationContainer, isolateModule, container } from './microfront-isolation-api';
+import { bindStyles, unbindStyles } from './microfront-isolation-api.style';
 import { insertStyle } from './insert-style';
 
 jest.mock('./once', () => ({
     once: <F extends Function>(fn: F): F => fn
+}));
+
+jest.mock('./microfront-api.events', () => ({
+    fireMicroFrontEvent: () => {}
 }));
 
 describe('isolateModule', () => {
@@ -19,7 +17,7 @@ describe('isolateModule', () => {
         console.warn = () => {};
         (globalThis as any).document = {} as Document;
         delete (globalThis as any).localStorage;
-        delete (globalThis as any).MutationObserver;
+        delete (globalThis as any).requestAnimationFrame;
     });
 
     afterEach(() => {
@@ -136,18 +134,13 @@ describe('isolateModule', () => {
         describe('auto', () => {
             it('should move styles created by MF to the corresponding shadow root automatically', () => {
                 // Document mock
+                const head = {};
                 (globalThis as any).document = {
-                    head: {},
-                    createElement: (tagName: string) => ({ nodeName: tagName.toUpperCase() } as HTMLElement)
+                    head,
+                    createElement: (tagName: string) =>
+                        ({ nodeName: tagName.toUpperCase(), parentNode: head } as HTMLElement)
                 } as Document;
-                // MutationObserver mock
-                let mutationCallback: MutationCallback;
-                (globalThis as any).MutationObserver = class {
-                    constructor(_: MutationCallback) {
-                        mutationCallback = _;
-                    }
-                    observe() {}
-                };
+                (globalThis as any).requestAnimationFrame = (callback: () => any) => callback();
                 // Re-init isolation container
                 configureIsolationContainer();
                 // MF root node mock
@@ -160,7 +153,6 @@ describe('isolateModule', () => {
                     styleNode = document.createElement('style');
                 });
                 bootstrapFoo({ root });
-                mutationCallback!([{ addedNodes: [styleNode] as any } as MutationRecord], {} as any);
 
                 expect(prepend).toBeCalledWith(styleNode);
             });
