@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { MicroFrontBootstrappedModule } from '@redneckz/microfront-core';
+import { MicroFrontBootstrappedModuleWithIsolation } from '@redneckz/microfront-core';
 
 export function useBootstrap(
-    bootstrap: () => Promise<MicroFrontBootstrappedModule | undefined>
-): [MicroFrontBootstrappedModule | undefined, Error | undefined] {
-    const [bootstrappedModule, setModule] = useState<MicroFrontBootstrappedModule>();
+    bootstrap: () => Promise<MicroFrontBootstrappedModuleWithIsolation | undefined>
+): [MicroFrontBootstrappedModuleWithIsolation | undefined, Error | undefined] {
+    const [bootstrappedModule, setModule] = useState<MicroFrontBootstrappedModuleWithIsolation>();
     const [error, setError] = useState<Error>();
 
     const bootstrapModule = useCallback(async () => {

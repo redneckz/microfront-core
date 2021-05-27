@@ -1,5 +1,5 @@
 import { MicroFrontParams } from './microfront-api.model';
-import { ModuleZoneData } from './microfront-isolation-api.model';
+import { assertModuleZone, createModuleZone, getModuleZone, getModuleZoneData } from './microfront-isolation-api.model';
 import { once } from './once';
 
 /**
@@ -37,40 +37,4 @@ export function container() {
 
 export function wrap<F extends Function>(callback: F, source: string): F {
     return assertModuleZone().wrap(callback, source);
-}
-
-export function bindStyles(): void {
-    const { params: { root } = {}, styles = [] } = getModuleZoneData();
-    if (!root) throw new Error('Trying to bind styles outside of micro frontend context');
-
-    root.prepend(...styles);
-}
-
-export function unbindStyles(): void {
-    const { params: { root } = {}, styles = [] } = getModuleZoneData();
-    if (!root) throw new Error('Trying to unbind styles outside of micro frontend context');
-
-    styles.forEach(_ => root.removeChild(_));
-}
-
-export function getMicroFrontParams(): MicroFrontParams | undefined {
-    return getModuleZoneData().params;
-}
-
-export function getModuleZoneData(): ModuleZoneData {
-    return assertModuleZone().get('data');
-}
-
-function createModuleZone(name: string): Zone {
-    return Zone.current.fork({ name, properties: { microfront: true, data: {} as ModuleZoneData } });
-}
-
-function getModuleZone(): Zone | null {
-    return Zone.current.getZoneWith('microfront');
-}
-
-function assertModuleZone(): Zone {
-    const moduleZone = getModuleZone();
-    if (!moduleZone) throw new Error('Please use isolation API inside micro frontend context');
-    return moduleZone;
 }

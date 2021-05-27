@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { MicroFrontBootstrappedModule } from '@redneckz/microfront-core';
+import { MicroFrontBootstrappedModuleWithIsolation } from '@redneckz/microfront-core';
 import { useBootstrap } from './use-bootstrap';
 
 jest.mock('react', () => ({
@@ -16,7 +16,7 @@ describe('useBootstrap', () => {
     it('should call module`s bootstrap on component mount', () => {
         expect.assertions(2);
 
-        const bootstrap = jest.fn(() => Promise.resolve({} as MicroFrontBootstrappedModule));
+        const bootstrap = jest.fn(() => Promise.resolve({} as MicroFrontBootstrappedModuleWithIsolation));
 
         useBootstrap(bootstrap);
 

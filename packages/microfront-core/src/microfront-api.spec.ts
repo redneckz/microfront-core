@@ -1,12 +1,16 @@
 import { register } from './microfront-api';
 import { MicroFrontParams, MicroFrontModule } from './microfront-api.model';
-import { bindStyles } from './microfront-isolation-api';
+import { bindStyles } from './microfront-isolation-api.style';
 
 jest.mock('./microfront-isolation-api', () => ({
     isolateModule: () => <F extends Function>(fn: F): F => fn,
+    wrap: jest.fn(fn => fn),
+    container: () => <F extends Function>(fn: F): F => fn
+}));
+
+jest.mock('./microfront-isolation-api.style', () => ({
     bindStyles: jest.fn(() => {}),
-    unbindStyles: jest.fn(() => {}),
-    wrap: jest.fn(fn => fn)
+    unbindStyles: jest.fn(() => {})
 }));
 
 jest.mock('./microfront-api.events', () => ({

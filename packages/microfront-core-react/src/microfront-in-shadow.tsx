@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { MicroFrontModuleBootstrap } from '@redneckz/microfront-core';
+import { MicroFrontModuleBootstrapWithIsolation } from '@redneckz/microfront-core';
 
 import { useShadow } from './use-shadow';
 import { useBootstrap } from './use-bootstrap';
@@ -9,7 +9,7 @@ import { useMount } from './use-mount';
 export interface MicroFrontInShadowProps<MiscParams extends Record<string, any>> {
     route?: string;
 
-    bootstrap: MicroFrontModuleBootstrap<MiscParams>;
+    bootstrap: MicroFrontModuleBootstrapWithIsolation<MiscParams>;
 
     renderError?: (error: Error) => React.ReactNode;
     children: (mountingRootRef: React.RefCallback<any>) => React.ReactNode;
