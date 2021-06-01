@@ -3,15 +3,16 @@ import { MicroFrontModuleBootstrap, MicroFrontBootstrappedModule } from '@rednec
 
 import { moveToShadow } from './shadow.directive';
 
-export interface MicroFrontInShadowProps {
+export interface MicroFrontInShadowProps<P extends Record<string, any> = {}> {
     route?: string;
-    bootstrap: MicroFrontModuleBootstrap;
+    bootstrap: MicroFrontModuleBootstrap<P>;
+    params?: P;
 }
 
 /**
  * Available slots:
+ * default: (mountingRootRef: Ref) => VNodeList;
  * error?: (error: Error) => VNodeList;
- * children: (mountingRootRef: Ref) => VNodeList;
  */
 export const MicroFrontInShadow = defineComponent({
     props: {
@@ -22,6 +23,10 @@ export const MicroFrontInShadow = defineComponent({
         bootstrap: {
             type: Function as PropType<MicroFrontInShadowProps['bootstrap']>,
             required: true
+        },
+        params: {
+            type: Object as PropType<MicroFrontInShadowProps['params']>,
+            required: false
         }
     },
     setup(props: MicroFrontInShadowProps, { slots }) {
@@ -34,7 +39,7 @@ export const MicroFrontInShadow = defineComponent({
         onMounted(async () => {
             try {
                 moveToShadow(rootRef.value!);
-                bootstrappedModuleRef.value = await props.bootstrap({ route: props.route, root: rootRef.value });
+                bootstrappedModuleRef.value = await props.bootstrap({ route: props.route, root: rootRef.value, ...props.params });
                 const { mount } = bootstrappedModuleRef.value;
                 await mount(mountingRootRef.value!);
             } catch (error) {

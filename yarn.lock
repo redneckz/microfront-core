@@ -1795,6 +1795,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redneckz/microfront-core-vue2@workspace:packages/microfront-core-vue2":
+  version: 0.0.0-use.local
+  resolution: "@redneckz/microfront-core-vue2@workspace:packages/microfront-core-vue2"
+  dependencies:
+    "@redneckz/microfront-core": "workspace:*"
+    "@types/node": 14.14.37
+    "@vue/composition-api": 1.0.0-rc.10
+    rimraf: 3.0.2
+    tslib: 2.2.0
+    typescript: 4.2.3
+    vue: 2.6.12
+  peerDependencies:
+    "@vue/composition-api": ">=1.0.0-rc.10"
+    vue: ">=2.6.0"
+  languageName: unknown
+  linkType: soft
+
 "@redneckz/microfront-core-vue@workspace:*, @redneckz/microfront-core-vue@workspace:packages/microfront-core-vue":
   version: 0.0.0-use.local
   resolution: "@redneckz/microfront-core-vue@workspace:packages/microfront-core-vue"
@@ -2914,6 +2931,17 @@ __metadata:
     prettier:
       optional: true
   checksum: 7fc8f6d81cc486a73457eb46f9c7d25a88f05a81573fe264d8d5cde51ecb2a45115cd6fe59fc96ab0799954643bf481f5f894cbd25f15c77a484beaf7d0dabaf
+  languageName: node
+  linkType: hard
+
+"@vue/composition-api@npm:1.0.0-rc.10":
+  version: 1.0.0-rc.10
+  resolution: "@vue/composition-api@npm:1.0.0-rc.10"
+  dependencies:
+    tslib: ^2.2.0
+  peerDependencies:
+    vue: ">= 2.5 < 3"
+  checksum: 7ae3b28e877c69dbe9f60c8a3d2a1dfe35bf8f7c87779f5a4e36acda6cba4ef490436ab3dd013019cd549106bbd229bcae6ab47487d63e1fbcefa4494ac11f4d
   languageName: node
   linkType: hard
 
@@ -12914,7 +12942,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.2.0, tslib@npm:^2.0.0, tslib@npm:^2.0.3":
+"tslib@npm:2.2.0, tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.2.0":
   version: 2.2.0
   resolution: "tslib@npm:2.2.0"
   checksum: 2d35468c470410871c5246e43f12dcb6d0fc363b617c176f26443b9530e5c5ee8448966892a42956168d8f495da7865bda33dfe82c26c91991e28999974a618f
@@ -13352,6 +13380,13 @@ typescript@4.2.3:
   version: 1.9.1
   resolution: "vue-template-es2015-compiler@npm:1.9.1"
   checksum: e25c0d4603cafb76a2d2c2adbd5cc62f419377d23d65118bc19793320c6448ef80ae191a8d6ec88e62fdd7ecb33d54850b232b02110da94a1fcfac3e062e9e83
+  languageName: node
+  linkType: hard
+
+"vue@npm:2.6.12":
+  version: 2.6.12
+  resolution: "vue@npm:2.6.12"
+  checksum: 92ed547e55a4b27a2a45aa9ab7ff5999f891dc9754562a37226dd190b323d9f99daec892dd8bd39786e404e6e065d808e165b1a0c127ce8d45fd1bde79ec7312
   languageName: node
   linkType: hard
 
