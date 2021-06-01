@@ -1,0 +1,36 @@
+{
+  "name": "@redneckz/microfront-core-vue2",
+  "version": "0.0.0",
+  "description": "Microfrontend lightweight core library for Vue 2",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rimraf dist lib out-tsc",
+    "build": "yarn clean && yarn build:tsc --incremental false",
+    "build:tsc": "tsc --outDir lib"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": ">=1.0.0-rc.10",
+    "vue": ">=2.6.0"
+  },
+  "dependencies": {
+    "@redneckz/microfront-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "14.14.37",
+    "@vue/composition-api": "1.0.0-rc.10",
+    "rimraf": "3.0.2",
+    "tslib": "2.2.0",
+    "typescript": "4.2.3",
+    "vue": "2.6.12"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}

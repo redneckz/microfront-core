@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <template v-slot:header>
-            <MicroFrontInShadow :bootstrap="bootstrapHeader" v-slot="mountingRootRef">
+            <MicroFrontInShadow :bootstrap="bootstrapHeader" :params="headerParams" v-slot="mountingRootRef">
                 <div :ref="mountingRootRef">Loading...</div>
             </MicroFrontInShadow>
         </template>
@@ -44,6 +44,12 @@ export default defineComponent({
     methods: {
         bootstrapHeader,
         bootstrapAds
+    },
+    data() {
+        return {
+            // Header bootstrap params
+            headerParams: { title: 'Micro Frontend Demo for Vue 2' }
+        };
     }
 });
 </script>
