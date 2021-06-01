@@ -1,12 +1,15 @@
 import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { MicroFrontModuleBootstrapWithIsolation } from '@redneckz/microfront-core';
+import {
+    MicroFrontIsolation,
+    MicroFrontModuleBootstrapWithIsolation
+} from '@redneckz/microfront-core';
 
-import { useShadow } from './use-shadow';
+import { useRoot } from './use-root';
 import { useBootstrap } from './use-bootstrap';
 import { useMount } from './use-mount';
 
-export interface MicroFrontInShadowProps<MiscParams extends Record<string, any>> {
+export interface MicroFrontContainerProps<MiscParams extends Record<string, any>> {
     route?: string;
 
     bootstrap: MicroFrontModuleBootstrapWithIsolation<MiscParams>;
@@ -16,7 +19,7 @@ export interface MicroFrontInShadowProps<MiscParams extends Record<string, any>>
 }
 
 /**
- * MicroFrontInShadow is responsible for the shadow DOM isolation of loaded MF.
+ * MicroFrontContainer is responsible for the shadow DOM isolation of loaded MF.
  * It accepts "bootstrap" function produced by @redneckz/microfront-core "register" function.
  *
  * @param route - root route dedicated for remote module
@@ -25,19 +28,21 @@ export interface MicroFrontInShadowProps<MiscParams extends Record<string, any>>
  * @param children - kind of loading and success handler
  * @returns
  */
-export function MicroFrontInShadow<MiscParams extends Record<string, any>>({
+export function MicroFrontContainer<MiscParams extends Record<string, any>>({
     route,
     bootstrap,
     renderError = defaultErrorRenderer,
     children,
     ...misc
-}: MicroFrontInShadowProps<MiscParams> & MiscParams) {
-    const [shadowRoot, rootRef] = useShadow<HTMLDivElement>();
+}: MicroFrontContainerProps<MiscParams> & MiscParams) {
+    const { isolationType = MicroFrontIsolation.SHADOW } = bootstrap;
+
+    const [shadowRoot, rootRef] = useRoot<HTMLDivElement>(isolationType);
 
     const bootstrapModule = useCallback(async () => {
         if (!shadowRoot) return;
 
-        return bootstrap({ route, root: shadowRoot, ...(misc as MicroFrontInShadowProps<MiscParams> & MiscParams) });
+        return bootstrap({ route, root: shadowRoot, ...(misc as MicroFrontContainerProps<MiscParams> & MiscParams) });
     }, [bootstrap, route, shadowRoot]);
 
     const [bootstrappedModule, error] = useBootstrap(bootstrapModule);
