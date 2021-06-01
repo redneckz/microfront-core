@@ -1,6 +1,6 @@
 {
   "name": "@redneckz/microfront-core-vue2",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Microfrontend lightweight core library for Vue 2",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
