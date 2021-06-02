@@ -12,13 +12,13 @@ Microfrontend Core Library for Vue 2
 Please be aware that only ECMAScript modules are supported!
 
 ```bash
-$ npm install --save @redneckz/microfront-core @redneckz/microfront-core-vue2
+$ npm install --save @redneckz/microfront-core @redneckz/microfront-core-vue2 @vue/composition-api
 ```
 
 or:
 
 ```bash
-$ yarn add @redneckz/microfront-core @redneckz/microfront-core-vue2
+$ yarn add @redneckz/microfront-core @redneckz/microfront-core-vue2 @vue/composition-api
 ```
 
 # Usage
