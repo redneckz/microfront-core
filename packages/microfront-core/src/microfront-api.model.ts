@@ -1,6 +1,7 @@
 export enum MicroFrontIsolation {
     SHADOW, // default
-    SANDBOX // not supported yet
+    SANDBOX, // not supported yet
+    NONE = 2
 }
 
 // Revealed API provided by host container
@@ -20,9 +21,10 @@ export interface MicroFrontBootstrappedModule {
 
 export type MicroFrontBootstrappedModuleWithIsolation = MicroFrontBootstrappedModule & WithIsolation;
 
-export type MicroFrontModuleBootstrap<MiscParams extends Record<string, any> = {}, ModuleExtension = {}> = (
-    params: MicroFrontParams & MiscParams
-) => Promise<MicroFrontBootstrappedModule & ModuleExtension>;
+export interface MicroFrontModuleBootstrap<MiscParams extends Record<string, any> = {}, ModuleExtension = {}> {
+    (params: MicroFrontParams & MiscParams): Promise<MicroFrontBootstrappedModule & ModuleExtension>;
+    isolationType?: MicroFrontIsolation;
+}
 
 export type MicroFrontModuleBootstrapWithIsolation<
     MiscParams extends Record<string, any> = {}

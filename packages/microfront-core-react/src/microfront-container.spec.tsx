@@ -1,16 +1,16 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import TestRenderer from 'react-test-renderer';
-import { MicroFrontInShadow } from './microfront-in-shadow';
-import { useShadow } from './use-shadow';
+import { MicroFrontContainer } from './microfront-container';
+import { useRoot } from './use-root';
 import { useBootstrap } from './use-bootstrap';
 import { useMount } from './use-mount';
 
 jest.mock('react-dom', () => ({
     createPortal: jest.fn(children => children)
 }));
-jest.mock('./use-shadow', () => ({
-    useShadow: jest.fn(() => [null, jest.fn()])
+jest.mock('./use-root', () => ({
+    useRoot: jest.fn(() => [null, jest.fn()])
 }));
 jest.mock('./use-bootstrap', () => ({
     useBootstrap: jest.fn(() => [null, null])
@@ -19,14 +19,14 @@ jest.mock('./use-mount', () => ({
     useMount: jest.fn(() => jest.fn())
 }));
 
-describe('MicroFrontInShadow', () => {
+describe('MicroFrontIContainer', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
 
     it('should render empty root if no shadow DOM has been attached', () => {
         const testRenderer = TestRenderer.create(
-            <MicroFrontInShadow bootstrap={() => Promise.resolve({} as any)}>{() => null}</MicroFrontInShadow>
+            <MicroFrontContainer bootstrap={() => Promise.resolve({} as any)}>{() => null}</MicroFrontContainer>
         );
 
         expect(testRenderer.toJSON()).toMatchInlineSnapshot(`
@@ -41,11 +41,11 @@ describe('MicroFrontInShadow', () => {
         expect.assertions(2);
 
         const shadowRoot = {} as ShadowRoot;
-        (useShadow as jest.Mock).mockReturnValueOnce([shadowRoot, { current: null }]);
+        (useRoot as jest.Mock).mockReturnValueOnce([shadowRoot, { current: null }]);
         const children = () => <div>children</div>;
 
         const testRenderer = TestRenderer.create(
-            <MicroFrontInShadow bootstrap={() => Promise.resolve({} as any)}>{children}</MicroFrontInShadow>
+            <MicroFrontContainer bootstrap={() => Promise.resolve({} as any)}>{children}</MicroFrontContainer>
         );
 
         expect(createPortal).toBeCalledWith(expect.anything(), shadowRoot);
@@ -66,7 +66,7 @@ describe('MicroFrontInShadow', () => {
         const renderError = ({ message }: Error) => message;
 
         const testRenderer = TestRenderer.create(
-            <MicroFrontInShadow renderError={renderError} bootstrap={() => Promise.resolve({} as any)}>{() => null}</MicroFrontInShadow>
+            <MicroFrontContainer renderError={renderError} bootstrap={() => Promise.resolve({} as any)}>{() => null}</MicroFrontContainer>
         );
 
         expect(testRenderer.toJSON()).toMatchInlineSnapshot(`
@@ -87,7 +87,7 @@ describe('MicroFrontInShadow', () => {
         const children = jest.fn((ref: React.RefCallback<any>) => <div ref={ref}>children</div>);
 
         const testRenderer = TestRenderer.create(
-            <MicroFrontInShadow bootstrap={() => Promise.resolve({} as any)}>{children}</MicroFrontInShadow>
+            <MicroFrontContainer bootstrap={() => Promise.resolve({} as any)}>{children}</MicroFrontContainer>
         );
 
         expect(children).toBeCalledWith(mountingRootRef);

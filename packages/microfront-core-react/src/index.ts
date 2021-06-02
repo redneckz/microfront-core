@@ -1,7 +1,7 @@
-export type { MicroFrontInShadowProps } from './microfront-in-shadow';
-export { MicroFrontInShadow } from './microfront-in-shadow';
+export type { MicroFrontContainerProps } from './microfront-container';
+export { MicroFrontContainer } from './microfront-container';
 
 // Can be used as a separate utility
-export { useShadow } from './use-shadow';
+export { useRoot } from './use-root';
 // Isolation utils
 export { Container, useContainer, useMicroFrontParams } from './use-container';

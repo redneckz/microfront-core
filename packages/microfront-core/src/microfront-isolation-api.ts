@@ -20,9 +20,9 @@ export const configureIsolationContainer = once(() => {
  * @param root - layout slot dedicated for this particular MF module
  * @returns isolated callback
  */
-export function isolateModule(name: string) {
+export function isolateModule<CallbackReturn = any>(name: string) {
     const moduleZone = createModuleZone(name);
-    return (callback: (params: MicroFrontParams) => any): typeof callback =>
+    return (callback: (params: MicroFrontParams) => CallbackReturn): typeof callback =>
         moduleZone.wrap(params => {
             const data = getModuleZoneData();
             data.params = params;

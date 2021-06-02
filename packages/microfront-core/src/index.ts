@@ -1,5 +1,4 @@
 export type {
-    MicroFrontIsolation,
     MicroFrontParams,
     MicroFrontBootstrappedModule,
     MicroFrontModuleBootstrap,
@@ -7,6 +6,8 @@ export type {
     MicroFrontModuleBootstrapWithIsolation,
     MicroFrontModule
 } from './microfront-api.model';
+
+export { MicroFrontIsolation } from './microfront-api.model';
 
 export { register } from './microfront-api';
 

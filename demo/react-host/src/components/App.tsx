@@ -6,7 +6,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { register } from '@redneckz/microfront-core';
-import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
+import { MicroFrontContainer } from '@redneckz/microfront-core-react';
 
 import { Layout } from './Layout';
 
@@ -37,14 +37,14 @@ export const App: React.FC = () => (
         <Layout
             header={
                 /* Typings are correctly seeped from "bootstrapHeader" to "MicroFrontInShadow" */
-                <MicroFrontInShadow bootstrap={bootstrapHeader} title="Micro Frontend Host Container">
+                <MicroFrontContainer bootstrap={bootstrapHeader} title="Micro Frontend Host Container">
                     {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-                </MicroFrontInShadow>
+                </MicroFrontContainer>
             }
             ads={
-                <MicroFrontInShadow bootstrap={bootstrapAds}>
+                <MicroFrontContainer bootstrap={bootstrapAds}>
                     {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-                </MicroFrontInShadow>
+                </MicroFrontContainer>
             }
         >
             <Switch>
@@ -52,9 +52,9 @@ export const App: React.FC = () => (
                 <Route path="/health">TODO Micro Frontend #2</Route>
                 <Route path="/travel">TODO Micro Frontend #3</Route>
                 <Route path="/">
-                    <MicroFrontInShadow bootstrap={bootstrapHome}>
+                    <MicroFrontContainer bootstrap={bootstrapHome}>
                         {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-                    </MicroFrontInShadow>
+                    </MicroFrontContainer>
                 </Route>
             </Switch>
         </Layout>
