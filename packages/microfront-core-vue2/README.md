@@ -9,8 +9,6 @@ Microfrontend Core Library for Vue 2
 
 # Installation
 
-Please be aware that only ECMAScript modules are supported!
-
 ```bash
 $ npm install --save @redneckz/microfront-core @redneckz/microfront-core-vue2 @vue/composition-api
 ```
@@ -24,12 +22,16 @@ $ yarn add @redneckz/microfront-core @redneckz/microfront-core-vue2 @vue/composi
 # Usage
 
 ```ts
+// Isolation setup (including Zone.js)
+import '@redneckz/microfront-core/lib/configure';
+
 import Vue from 'vue';
+import VueCompositionAPI from '@vue/composition-api';
 import microfront from '@redneckz/microfront-core-vue2';
 
 import App from './App.vue';
 
-Vue.use(microfront);
+Vue.use(VueCompositionAPI).use(microfront);
 
 new Vue({
     el: '#app',
