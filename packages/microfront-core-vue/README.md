@@ -9,8 +9,6 @@ Microfrontend Core Library for Vue
 
 # Installation
 
-Please be aware that only ECMAScript modules are supported!
-
 ```bash
 $ npm install --save @redneckz/microfront-core @redneckz/microfront-core-vue
 ```
