@@ -263,6 +263,44 @@ export const bootstrap: MicroFrontModuleBootstrap = async ({ route: rootRoute })
 };
 ```
 
+## Step #6 Security
+
+In most cases _host container_ and _micro frontends_ are distributed across different domains. To make communication between host container and micro frontends more secure we need to configure [Content Security Policy](https://developer.mozilla.org/ru/docs/Web/HTTP/CSP) and [Cross-Origin Resource Sharing](https://developer.mozilla.org/ru/docs/Web/HTTP/CORS).
+
+For example, https://some.hostcontainer.com aggregates https://some.microfrontend.com
+
+Requests from https://some.hostcontainer.com to https://some.microfrontend.com (including API requests) should be blocked by browser according to default security policy.
+
+To address this problem security should be configured on both the host container side and the micro frontend side.
+
+To explicitly allow any content from https://some.microfrontend.com configure _Content-Security-Policy_ for https://some.hostcontainer.com
+
+https://some.hostcontainer.com/index.html example:
+
+```html
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' some.microfrontend.com;" />
+```
+
+To make browser happy configure CORS for https://some.microfrontend.com
+
+https://some.microfrontend.com _NGINX_ config example:
+
+```nginx
+add_header 'Access-Control-Allow-Origin' 'https://some.hostcontainer.com';
+add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, HEAD, OPTIONS';
+add_header 'Access-Control-Allow-Headers' 'X-Custom-Header';
+add_header 'Access-Control-Expose-Headers' 'X-Custom-Header';
+add_header 'Access-Control-Allow-Credentials' 'true';
+```
+
+In case of multiple host containers accessing the same micro frontend, _Origin_ echoing approach could be used:
+
+```nginx
+if ($http_origin ~* "^https://.*\.hostcontainer\.com$" ) {
+    add_header Access-Control-Allow-Origin $http_origin;
+}
+```
+
 # License
 
 [MIT](http://vjpr.mit-license.org)
