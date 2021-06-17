@@ -5,6 +5,12 @@
   "main": "dist/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
+  "repository": {
+    "url": "https://github.com/redneckz/microfront-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/redneckz/microfront-core/issues"
+  },
   "files": [
     "src",
     "lib",

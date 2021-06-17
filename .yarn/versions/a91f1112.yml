@@ -1,0 +1,8 @@
+releases:
+  "@redneckz/microfront-core": patch
+  "@redneckz/microfront-core-react": patch
+  "@redneckz/microfront-core-vue": patch
+  "@redneckz/microfront-core-vue2": patch
+
+declined:
+  - "@demo/vue-host"
