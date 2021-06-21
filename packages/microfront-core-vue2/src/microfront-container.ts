@@ -1,10 +1,14 @@
 import { PropType, defineComponent, ref, onMounted, onBeforeUnmount } from '@vue/composition-api';
-import { MicroFrontModuleBootstrap, MicroFrontBootstrappedModule } from '@redneckz/microfront-core';
+import {
+    MicroFrontIsolation,
+    MicroFrontModuleBootstrap,
+    MicroFrontBootstrappedModule
+} from '@redneckz/microfront-core';
 
 import { moveToShadow } from './shadow.directive';
 import { VNode } from 'vue';
 
-export interface MicroFrontInShadowProps<P extends Record<string, any> = {}> {
+export interface MicroFrontContainerProps<P extends Record<string, any> = {}> {
     parentRef?: string; // TODO See dirty hack below
     route?: string;
     bootstrap: MicroFrontModuleBootstrap<P>;
@@ -12,38 +16,33 @@ export interface MicroFrontInShadowProps<P extends Record<string, any> = {}> {
 }
 
 /**
- * @deprecated
- *
  * Available slots:
  * @param default: () => VNodeList;
  * @param error?: (error: Error) => VNodeList;
  */
-export const MicroFrontInShadow = defineComponent({
+export const MicroFrontContainer = defineComponent({
     props: {
         parentRef: {
-            type: String as PropType<MicroFrontInShadowProps['parentRef']>,
+            type: String as PropType<MicroFrontContainerProps['parentRef']>,
             required: false,
             default: 'mountingRoot'
         },
         route: {
-            type: String as PropType<MicroFrontInShadowProps['route']>,
+            type: String as PropType<MicroFrontContainerProps['route']>,
             required: false
         },
         bootstrap: {
-            type: Function as PropType<MicroFrontInShadowProps['bootstrap']>,
+            type: Function as PropType<MicroFrontContainerProps['bootstrap']>,
             required: true
         },
         params: {
-            type: Object as PropType<MicroFrontInShadowProps['params']>,
+            type: Object as PropType<MicroFrontContainerProps['params']>,
             required: false
         }
     },
-    /**
-     * @param props
-     * @param slots
-     * @param parent - have to use deprecated API cause of absence of ref as a function in Vue2
-     */
-    setup(props: MicroFrontInShadowProps, { slots, parent }) {
+    setup(props: MicroFrontContainerProps, { slots, parent }) {
+        const { isolationType = MicroFrontIsolation.SHADOW } = props.bootstrap;
+
         const rootRef = ref<Element>();
         // TODO Dirty hack because of "absence of ref as a function in Vue2". See microfront-core-vue (Vue3) for sane implementation
         // TODO Find out proper solution to avoid usage of deprecated "parent"
@@ -54,7 +53,9 @@ export const MicroFrontInShadow = defineComponent({
 
         onMounted(async () => {
             try {
-                moveToShadow(rootRef.value!);
+                if (isolationType === MicroFrontIsolation.SHADOW) {
+                    moveToShadow(rootRef.value!);
+                }
                 bootstrappedModuleRef.value = await props.bootstrap({
                     route: props.route,
                     root: rootRef.value,
