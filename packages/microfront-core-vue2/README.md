@@ -41,15 +41,15 @@ new Vue({
 
 ```vue
 <template>
-    <MicroFrontInShadow :bootstrap="bootstrapFoo">
+    <MicroFrontContainer :bootstrap="bootstrapFoo">
         <div ref="mountingRoot">Loading...</div>
-    </MicroFrontInShadow>
+    </MicroFrontContainer>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { register } from '@redneckz/microfront-core';
-import { MicroFrontInShadow } from '@redneckz/microfront-core-vue';
+import { MicroFrontContainer } from '@redneckz/microfront-core-vue2';
 
 const bootstrapFoo = register(
     'foo', // remote module name according to Module Federation config
@@ -58,7 +58,7 @@ const bootstrapFoo = register(
 
 export default Vue.extend({
     name: 'App',
-    components: { MicroFrontInShadow },
+    components: { MicroFrontContainer },
     methods: { bootstrapFoo }
 });
 </script>
