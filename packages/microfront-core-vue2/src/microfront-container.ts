@@ -53,12 +53,13 @@ export const MicroFrontContainer = defineComponent({
 
         onMounted(async () => {
             try {
+                let root: ParentNode & Node = rootRef.value!;
                 if (isolationType === MicroFrontIsolation.SHADOW) {
-                    moveToShadow(rootRef.value!);
+                    root = moveToShadow(rootRef.value!);
                 }
                 bootstrappedModuleRef.value = await props.bootstrap({
                     route: props.route,
-                    root: rootRef.value,
+                    root,
                     ...props.params
                 });
                 const { mount } = bootstrappedModuleRef.value;
