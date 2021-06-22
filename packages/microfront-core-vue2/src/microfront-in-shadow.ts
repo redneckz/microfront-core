@@ -1,5 +1,9 @@
 import { PropType, defineComponent, ref, onMounted, onBeforeUnmount } from '@vue/composition-api';
-import { MicroFrontModuleBootstrap, MicroFrontBootstrappedModule } from '@redneckz/microfront-core';
+import {
+    MicroFrontIsolation,
+    MicroFrontModuleBootstrap,
+    MicroFrontBootstrappedModule
+} from '@redneckz/microfront-core';
 
 import { moveToShadow } from './shadow.directive';
 import { VNode } from 'vue';
@@ -44,6 +48,8 @@ export const MicroFrontInShadow = defineComponent({
      * @param parent - have to use deprecated API cause of absence of ref as a function in Vue2
      */
     setup(props: MicroFrontInShadowProps, { slots, parent }) {
+        const { isolationType = MicroFrontIsolation.SHADOW } = props.bootstrap;
+
         const rootRef = ref<Element>();
         // TODO Dirty hack because of "absence of ref as a function in Vue2". See microfront-core-vue (Vue3) for sane implementation
         // TODO Find out proper solution to avoid usage of deprecated "parent"
@@ -54,10 +60,13 @@ export const MicroFrontInShadow = defineComponent({
 
         onMounted(async () => {
             try {
-                moveToShadow(rootRef.value!);
+                let root: ParentNode & Node = rootRef.value!;
+                if (isolationType === MicroFrontIsolation.SHADOW) {
+                    root = moveToShadow(rootRef.value!);
+                }
                 bootstrappedModuleRef.value = await props.bootstrap({
                     route: props.route,
-                    root: rootRef.value,
+                    root,
                     ...props.params
                 });
                 const { mount } = bootstrappedModuleRef.value;

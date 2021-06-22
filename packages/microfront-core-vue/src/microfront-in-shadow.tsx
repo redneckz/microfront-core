@@ -1,5 +1,9 @@
 import { h, RenderFunction, PropType, defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
-import { MicroFrontModuleBootstrap, MicroFrontBootstrappedModule } from '@redneckz/microfront-core';
+import {
+    MicroFrontIsolation,
+    MicroFrontModuleBootstrap,
+    MicroFrontBootstrappedModule
+} from '@redneckz/microfront-core';
 
 import { moveToShadow } from './shadow.directive';
 
@@ -30,6 +34,8 @@ export const MicroFrontInShadow = defineComponent({
         }
     },
     setup(props: MicroFrontInShadowProps, { slots }) {
+        const { isolationType = MicroFrontIsolation.SHADOW } = props.bootstrap;
+
         const rootRef = ref<Element>();
         const mountingRootRef = ref<Element>();
 
@@ -38,8 +44,15 @@ export const MicroFrontInShadow = defineComponent({
 
         onMounted(async () => {
             try {
-                moveToShadow(rootRef.value!);
-                bootstrappedModuleRef.value = await props.bootstrap({ route: props.route, root: rootRef.value, ...props.params });
+                let root: ParentNode & Node = rootRef.value!;
+                if (isolationType === MicroFrontIsolation.SHADOW) {
+                    root = moveToShadow(rootRef.value!);
+                }
+                bootstrappedModuleRef.value = await props.bootstrap({
+                    route: props.route,
+                    root,
+                    ...props.params
+                });
                 const { mount } = bootstrappedModuleRef.value;
                 await mount(mountingRootRef.value!);
             } catch (error) {
