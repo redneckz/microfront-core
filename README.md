@@ -296,7 +296,7 @@ add_header 'Access-Control-Allow-Credentials' 'true';
 In case of multiple host containers accessing the same micro frontend, _Origin_ echoing approach could be used:
 
 ```nginx
-if ($http_origin ~* '^https://(svoefermerstvo|svoedom|svoe-selo|svoe-rodnoe)\.ru$') {
+if ($http_origin ~* '^https://(svoefermerstvo|svoedom|svoe-selo|svoe-rodnoe|svoe-zagorodom)\.ru$') {
     add_header 'Access-Control-Allow-Origin' $http_origin;
 }
 ```
