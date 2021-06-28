@@ -119,16 +119,23 @@ import('./bootstrap');
 
 ### Micro Frontend Container Configuration
 
+`publicPath` (from `webpack.output` section) is required to be configured. It should point out the actual origin of the MF container to make it remotely accessible. 
+In the case of multiple environments (dev, pre-prod, prod, etc.) additional entry should be configured and named according to the MF container name.
+
 ```js
 const webpack = require('webpack');
 const { moduleFederationOptions } = require('@redneckz/module-federation-utils');
 const { insertStyle } = require('@redneckz/microfront-core');
 
 module.exports = {
+  entry: {
+    foo: resolve(__dirname, './src/setPublicPath.js'),
+    ...
+  },
   output: {
     ...
     uniqueName: 'foo',
-    publicPath: 'https://foo-domain/'
+    publicPath: '/'
   },
   ...
   plugins: [
@@ -153,6 +160,12 @@ module.exports = {
     ),
   ],
 };
+```
+
+`setPublicPath.js` contains only one line of code which sets up the global webpack variable:
+
+```js
+__webpack_public_path__ = new URL(document.currentScript.src).origin + '/';
 ```
 
 Also, please, move the `root` module into the separate `bootstrap` module to load it asynchronously. See "Host Container Configuration"
@@ -261,6 +274,13 @@ export const bootstrap: MicroFrontModuleBootstrap = async ({ route: rootRoute })
         }
     };
 };
+```
+
+It's very important to set up proper Url for backend endpoints. This Url isn't known while application is building.
+So it should be defined at runtime. The approach is identical to the previously used for `publicPath`.
+
+```ts
+const backendRoot = document.currentScript && new URL((document.currentScript as HTMLScriptElement).src).origin;
 ```
 
 ## Step #6 Security
