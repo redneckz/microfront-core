@@ -28,6 +28,7 @@ $ yarn version check --interactive
 [Micro Frontend Core Library](./packages/microfront-core/README.md)
 
 [Micro Frontend Core Library for React](./packages/microfront-core-react/README.md)
+
 [Micro Frontend Core Library for Vue2](./packages/microfront-core-vue2)
 
 [Webpack Module Federation Utils](./packages/module-federation-utils/README.md)
