@@ -24,7 +24,7 @@ export function insertStyle(
         if (!data) return;
 
         const { params: { root } = {} } = data;
-        root!.prepend(style);
+        root!.append(style);
         if (!data.styles) data.styles = [];
         data.styles.push(style);
     } catch (err) {
