@@ -81,9 +81,9 @@ describe('isolateModule', () => {
 
     describe('styles isolation', () => {
         describe('manual', () => {
-            it('should prepend styles into the remote module root by means of "insertStyle" function', () => {
-                const prepend = jest.fn();
-                const root = { prepend } as any;
+            it('should append styles into the remote module root by means of "insertStyle" function', () => {
+                const append = jest.fn();
+                const root = { append } as any;
                 const linkTag = { textContent: 'linkTag1' } as Node;
 
                 const bootstrapFoo = isolateModule('foo')(() => {
@@ -91,12 +91,13 @@ describe('isolateModule', () => {
                 });
                 bootstrapFoo({ root });
 
-                expect(prepend).toBeCalledWith(linkTag);
+                expect(append).toBeCalledWith(linkTag);
             });
 
             it('should reinitialize all previously inserted styles by means of "bindStyles" function (preserving order)', () => {
+                const append = jest.fn();
                 const prepend = jest.fn();
-                const root = { prepend } as any;
+                const root = { append, prepend } as any;
                 const linkTag1 = { textContent: 'linkTag1' } as Node;
                 const linkTag2 = { textContent: 'linkTag2' } as Node;
 
@@ -115,7 +116,7 @@ describe('isolateModule', () => {
                 expect.assertions(2);
 
                 const removeChild = jest.fn();
-                const root = { prepend: () => {}, removeChild } as any;
+                const root = { append: () => {}, removeChild } as any;
                 const linkTag1 = { textContent: 'linkTag1' } as Node;
                 const linkTag2 = { textContent: 'linkTag2' } as Node;
 
@@ -144,8 +145,8 @@ describe('isolateModule', () => {
                 // Re-init isolation container
                 configureIsolationContainer();
                 // MF root node mock
-                const prepend = jest.fn();
-                const root = { prepend } as any;
+                const append = jest.fn();
+                const root = { append } as any;
 
                 let styleNode;
                 const bootstrapFoo = isolateModule('foo')(() => {
@@ -154,7 +155,7 @@ describe('isolateModule', () => {
                 });
                 bootstrapFoo({ root });
 
-                expect(prepend).toBeCalledWith(styleNode);
+                expect(append).toBeCalledWith(styleNode);
             });
         });
     });
