@@ -1,0 +1,6 @@
+releases:
+  "@redneckz/microfront-core": major
+  "@redneckz/microfront-core-react": major
+  "@redneckz/microfront-core-vue": major
+  "@redneckz/microfront-core-vue2": major
+  "@redneckz/module-federation-utils": major
