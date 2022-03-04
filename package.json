@@ -14,7 +14,7 @@
     "url": "https://github.com/redneckz/microfront-core/issues"
   },
   "scripts": {
-    "build": "yarn workspaces foreach -pvt run build",
+    "build": "yarn workspace @redneckz/microfront-core run build && yarn workspace @redneckz/module-federation-utils run build && yarn workspace @redneckz/microfront-core-react run build && yarn workspace @redneckz/microfront-core-vue run build && yarn workspace @redneckz/microfront-core-vue2 run build",
     "build:dev": "yarn workspaces foreach -pvt run build:dev",
     "test": "jest --coverage",
     "build:demo": "yarn workspace @demo/react-host build",

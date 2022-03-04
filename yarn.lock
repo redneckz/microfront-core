@@ -13047,11 +13047,11 @@ typescript@4.2.3:
 
 "typescript@patch:typescript@4.2.3#builtin<compat/typescript>":
   version: 4.2.3
-  resolution: "typescript@patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=a45b0e"
+  resolution: "typescript@patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=8133ad"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a8956044aabf730699bcc3c2475efdd3f35e509329325cf60b4989761d4c2188e2c474183e2cf92b8c201fcf976814a5a16f144508b2a832643c4f972d0ab803
+  checksum: c1dcf74fc8a427bba77eaf37b832bf44aeea73ac831af2ec76572d56d4f1a27ae67714ef9d2d9ef1f5a89d3454d11a5cc37185501310b0b0984c6ce917e65cf1
   languageName: node
   linkType: hard
 

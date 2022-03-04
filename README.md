@@ -1,9 +1,11 @@
-# microfront-toolset
+# microfront-core
 
-Microfrontend toolset
+Microfrontend Core
 
-[![pipeline status](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/badges/main/pipeline.svg?ignore_skipped=true)](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/-/commits/main)
-[![coverage report](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/badges/main/coverage.svg)](https://devrshb.tech:18443/public-core-solutions/micro-frontend/micro-frontend-core/-/commits/main)
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][build-image]][build-url]
+[![Coverage][coverage-image]][coverage-url]
+[![Bundle size][bundlephobia-image]][bundlephobia-url]
 
 # How-to
 
@@ -121,7 +123,7 @@ import('./bootstrap');
 
 ### Micro Frontend Container Configuration
 
-`publicPath` (from `webpack.output` section) is required to be configured. It should point out the actual origin of the MF container to make it remotely accessible. 
+`publicPath` (from `webpack.output` section) is required to be configured. It should point out the actual origin of the MF container to make it remotely accessible.
 In the case of multiple environments (dev, pre-prod, prod, etc.) additional entry should be configured and named according to the MF container name.
 
 ```js
@@ -329,9 +331,9 @@ if ($http_origin ~* '^https://(svoefermerstvo|svoedom|svoe-selo|svoe-rodnoe|svoe
 
 [npm-image]: https://badge.fury.io/js/%40redneckz%2Fmicrofront-core.svg
 [npm-url]: https://www.npmjs.com/package/%40redneckz%2Fmicrofront-core
-[build-image]: https://cloud.drone.io/api/badges/redneckz/microfront-core/status.svg
-[build-url]: https://cloud.drone.io/redneckz/microfront-core
-[coverage-image]: https://codecov.io/gh/redneckz/microfront-core/branch/main/graph/badge.svg?token=WMWRVVHT0C
-[coverage-url]: https://codecov.io/gh/redneckz/microfront-core
+[build-image]: https://github.com/redneckz/microfront-core/actions/workflows/build-test.yml/badge.svg
+[build-url]: https://github.com/redneckz/microfront-core/actions/workflows/build-test.yml
+[coverage-image]: https://coveralls.io/repos/github/redneckz/microfront-core/badge.svg?branch=main
+[coverage-url]: https://coveralls.io/github/redneckz/microfront-core?branch=main
 [bundlephobia-image]: https://badgen.net/bundlephobia/min/@redneckz/microfront-core
 [bundlephobia-url]: https://bundlephobia.com/result?p=@redneckz/microfront-core
