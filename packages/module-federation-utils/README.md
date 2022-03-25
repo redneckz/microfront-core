@@ -28,7 +28,7 @@ TODO
 
 [npm-image]: https://badge.fury.io/js/%40redneckz%2Fmodule-federation-utils.svg
 [npm-url]: https://www.npmjs.com/package/%40redneckz%2Fmodule-federation-utils
-[build-image]: https://cloud.drone.io/api/badges/redneckz/microfront-core/status.svg
-[build-url]: https://cloud.drone.io/redneckz/microfront-core
-[coverage-image]: https://codecov.io/gh/redneckz/microfront-core/branch/main/graph/badge.svg?token=WMWRVVHT0C
-[coverage-url]: https://codecov.io/gh/redneckz/microfront-core
+[build-image]: https://github.com/redneckz/microfront-core/actions/workflows/build-test.yml/badge.svg
+[build-url]: https://github.com/redneckz/microfront-core/actions/workflows/build-test.yml
+[coverage-image]: https://coveralls.io/repos/github/redneckz/microfront-core/badge.svg?branch=main
+[coverage-url]: https://coveralls.io/github/redneckz/microfront-core?branch=main
