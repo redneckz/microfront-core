@@ -181,7 +181,7 @@ import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 
 import { register } from '@redneckz/microfront-core';
-import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
+import { MicroFrontContainer } from '@redneckz/microfront-core-react';
 
 const bootstrapFoo = register(
     'foo', // remote module name according to Module Federation config
@@ -191,56 +191,13 @@ const bootstrapFoo = register(
 export const App: React.FC = () => (
     <Switch>
         <Route path="path/to/foo">
-            <MicroFrontInShadow route="path/to/foo" bootstrap={bootstrapFoo}>
+            <MicroFrontContainer route="path/to/foo" bootstrap={bootstrapFoo}>
                 {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-            </MicroFrontInShadow>
+            </MicroFrontContainer>
         </Route>
         ...
     </Switch>
 );
-```
-
-## Step #4 [Angular] Host Container
-
-TODO Implement @redneckz/microfront-core-angular
-
-```ts
-import { Component, NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-import { register } from '@redneckz/microfront-core';
-import { MicroFrontCoreModule } from '@redneckz/microfront-core-angular';
-
-const bootstrapFoo = register(
-    'foo', // remote module name according to Module Federation config
-    () => import('foo/foo-page') //  remote module
-);
-
-@Component({
-    // "microfront-in-shadow" is a part of "MicroFrontCoreModule"
-    template: '<microfront-in-shadow route="path/to/foo" [bootstrap]="bootstrap"></microfront-in-shadow>'
-})
-export class FooInShadowComponent {
-    bootstrap = bootstrapFoo;
-}
-
-const routes: Routes = [
-    ...,
-    {
-        path: 'path/to/foo', // remote module root route
-        children: [{
-            path: '**',
-            component: FooInShadowComponent
-        }]
-    }
-];
-
-@NgModule({
-    declarations: [FooInShadowComponent],
-    imports: [RouterModule.forRoot(routes), MicroFrontCoreModule],
-    exports: [RouterModule]
-})
-export class AppRoutingModule {}
 ```
 
 ## Step #5 [React] Micro Frontend

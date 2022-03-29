@@ -36,7 +36,7 @@ export const App: React.FC = () => (
     <Router>
         <Layout
             header={
-                /* Typings are correctly seeped from "bootstrapHeader" to "MicroFrontInShadow" */
+                /* Typings are correctly seeped from "bootstrapHeader" to "MicroFrontContainer" */
                 <MicroFrontContainer bootstrap={bootstrapHeader} title="Micro Frontend Host Container">
                     {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
                 </MicroFrontContainer>

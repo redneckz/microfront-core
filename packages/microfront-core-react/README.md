@@ -128,7 +128,7 @@ Integrate micro frontend with host container and pass in additional params:
 import React from 'react';
 
 import { register } from '@redneckz/microfront-core';
-import { MicroFrontInShadow } from '@redneckz/microfront-core-react';
+import { MicroFrontContainer } from '@redneckz/microfront-core-react';
 
 import { Layout } from './Layout';
 
@@ -149,10 +149,10 @@ const bootstrapHeader = register<HeaderProps>(
 export const App: React.FC = () => (
     <Layout
         header={
-            /* Typings are correctly seeped from "bootstrapHeader" to "MicroFrontInShadow" */
-            <MicroFrontInShadow bootstrap={bootstrapHeader} title="Micro Frontends">
+            /* Typings are correctly seeped from "bootstrapHeader" to "MicroFrontContainer" */
+            <MicroFrontContainer bootstrap={bootstrapHeader} title="Micro Frontends">
                 {mountingRootRef => <div ref={mountingRootRef}>Loading...</div>}
-            </MicroFrontInShadow>
+            </MicroFrontContainer>
         }
     >
         ...
